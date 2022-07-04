@@ -72,7 +72,6 @@ async fn main() -> Result<()> {
     Ok(())
 }
 
-//TODO: service that routes to S if route recognizes path, F otherwise
 #[derive(Clone)]
 struct RoutableService<R, S: Clone, F: Clone> {
     r: PhantomData<R>,
