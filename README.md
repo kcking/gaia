@@ -9,4 +9,5 @@
 
 ## TODO:
 
-- Yew router method that takes in a Routable and matches recognized routes
+- [x] Yew router method that takes in a Routable and matches recognized routes
+- [ ] tailwind batteries included

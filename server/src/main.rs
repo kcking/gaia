@@ -46,7 +46,6 @@ async fn index(
 
 #[tokio::main]
 async fn main() -> Result<()> {
-    // gaia::Route::try_from(value);
     let route_service = RoutableService::<gaia::Route, _, _>::new(
         get(index),
         get_service(ServeDir::new("dist")).handle_error(|e| async move {
