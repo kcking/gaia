@@ -51,7 +51,9 @@ fn switch(route: Route) -> Html {
             {
                 match route {
                     Route::Home => html! {
-                        "Home"
+                        <>
+                        {"Home2 3"}
+                        </>
                     },
                     Route::Blog => html! {
                         "Blog"

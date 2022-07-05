@@ -49,21 +49,12 @@ async fn main() -> Result<()> {
     // gaia::Route::try_from(value);
     let route_service = RoutableService::<gaia::Route, _, _>::new(
         get(index),
-        get_service(ServeDir::new("../dist")).handle_error(|e| async move {
+        get_service(ServeDir::new("dist")).handle_error(|e| async move {
             dbg!(e);
             StatusCode::BAD_REQUEST
         }),
     );
     let route_service = get_service(route_service).layer(Extension(INDEX_HTML.to_string()));
-    let app = Router::new()
-        .route("/", get(index))
-        .fallback(
-            get_service(ServeDir::new("../dist")).handle_error(|e| async move {
-                dbg!(e);
-                StatusCode::BAD_REQUEST
-            }),
-        )
-        .layer(Extension(INDEX_HTML.to_string()));
 
     axum::Server::bind(&"127.0.0.1:8080".parse()?)
         .serve(get_service(route_service).into_make_service())
@@ -129,6 +120,7 @@ where
     }
 
     fn call(&mut self, req: Request<Body>) -> Self::Future {
+        //  TODO: think about how this treats not_found_path
         match <R as Routable>::recognize(req.uri().path()).is_some() {
             true => {
                 self.s_ready = false;
