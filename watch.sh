@@ -1,1 +1,1 @@
-cargo watch -w $PWD -s 'trunk build  && cargo run -p server'
+cargo watch -w $PWD -s 'trunk build && npx --prefer-offline tailwindcss --output dist/tailwind.css && cargo run -p server'

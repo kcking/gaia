@@ -48,14 +48,22 @@ pub fn ServerApp(props: &ServerAppProps) -> Html {
 #[function_component]
 fn Navbar() -> Html {
     html! {
-        <div class="flex justify-evenly flex-wrap w-full">
+        <div class="flex justify-evenly flex-wrap w-full navbar">
             <h1 class="font-display text-6xl p-10">
                 <Link<Route> to={Route::Home} classes="p-4" >{"impl Future {}"}</Link<Route>>
             </h1>
-            <div class="flex">
-                <Link<Route> classes="p-4 text-3xl" to={Route::Blog}>{"Blog"}</Link<Route>>
-                <Link<Route> classes="p-4 text-3xl" to={Route::Projects}>{"Projects"}</Link<Route>>
-                // <Link<Route> classes="p-4 text-3xl" to="https://twitter.com/4kevinking">{"Contact"}</Link<Route>>
+            <div class="flex items-center">
+                <Link<Route> classes="p-4 text-3xl" to={Route::Blog}>
+                    <button >
+                        {"Blog"}
+                    </button>
+                </Link<Route>>
+                <Link<Route> classes="p-4 text-3xl" to={Route::Projects}>
+                    <button >
+                        {"Projects"}
+                    </button>
+                </Link<Route>>
+                <a class="p-4 text-3xl" href="https://twitter.com/4kevinking">{"Contact"}</a>
             </div>
         </div>
     }
@@ -63,14 +71,12 @@ fn Navbar() -> Html {
 
 #[function_component]
 fn Home() -> Html {
-    html!{
-
-    }
+    html! {}
 }
 
 fn switch(route: Route) -> Html {
     html! {
-        <>
+        <main class="font-body">
             <Navbar />
             {
                 match route {
@@ -87,6 +93,6 @@ fn switch(route: Route) -> Html {
                     },
                 }
             }
-        </>
+        </main>
     }
 }
