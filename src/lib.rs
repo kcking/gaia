@@ -1,5 +1,8 @@
+mod projects;
+
 use std::collections::HashMap;
 
+use projects::Projects;
 use yew::prelude::*;
 use yew_router::{
     history::{AnyHistory, History, MemoryHistory},
@@ -12,7 +15,7 @@ pub enum Route {
     Home,
     #[at("/blog")]
     Blog,
-    #[at("/Projects")]
+    #[at("/projects")]
     Projects,
 }
 
@@ -112,7 +115,7 @@ fn switch(route: Route) -> Html {
                         "Blog"
                     },
                     Route::Projects => html! {
-                        "Projects"
+                        <Projects />
                     },
                 }
             }
