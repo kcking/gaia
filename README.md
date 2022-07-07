@@ -15,4 +15,5 @@
 - [x] nested Html vnodes as component properties
   - use `yew::Children`
   - still doesn't work with SSR :( -- oh it was just because of \<p> nested in \<p>
-- [ ] dynamic styles (stylist _should_ work but might need to enforce inlining for SSR/CSR determinism)
+- [x] dynamic styles with stylist
+  - had to enable `yew` feature so that `stylist` generates `Classes` conversion

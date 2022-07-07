@@ -29,7 +29,7 @@ a {
 }
 
 .navbar a {
-  color: white;
+  color: black;
 }
 
 @media(prefers-color-scheme: dark) {

@@ -1,6 +1,6 @@
 use std::sync::Arc;
 
-use stylist::{css, style};
+use stylist::{css, style, YieldStyle};
 use yew::{prelude::*, virtual_dom::VNode};
 
 #[derive(Properties, PartialEq)]
@@ -12,12 +12,15 @@ struct ProjectProps {
 
 #[function_component]
 fn Project(props: &ProjectProps) -> Html {
-    let style = style!(
+    let img_style = css!(
         r#"
-        background-size: 80% 80%;
-    "#
-    )
-    .unwrap();
+    background-image: ${image};
+    background-size: 80% 80%;
+    background-position: 50% 20%;
+    background-repeat: no-repeat;
+    "#,
+        image = &props.image
+    );
     html! {
     <div
       className="group p-2 border-0 border-zinc-700 border-solid w-64 h-64 flex flex-col justify-between select-none "
@@ -25,15 +28,10 @@ fn Project(props: &ProjectProps) -> Html {
       key={props.name.as_str()}
     >
       <div
-        className={
-          "w-60 h-60 absolute group-hover:invisible group-focus:invisible"
-        }
-        style={
-            style.get_style_str().to_owned()
-        //   backgroundImage: `url('${props.image}')`,
-        //   backgroundSize: "80% 80%",
-        //   backgroundPosition: "50% 20%",
-        //   backgroundRepeat: "no-repeat",
+        class={
+          classes!("w-60 h-60 absolute group-hover:invisible
+          group-focus:invisible".split_ascii_whitespace().collect::<Vec<_>>(),
+          img_style)
         }
       ></div>
       <div className="invisible group-hover:visible group-focus:visible">
