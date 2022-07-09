@@ -49,7 +49,7 @@ fn Project(props: &ProjectProps) -> Html {
 #[function_component]
 pub fn Projects() -> Html {
     html! {
-        <Project name="test project" image="hi.jpg" description={html!{
+        <Project name="test project" image="img/bevy.svg" description={html!{
             <p>{"Description"}</p>
         }}>
         </Project>
