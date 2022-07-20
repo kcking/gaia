@@ -1,5 +1,6 @@
 # Gaia 🌳
 
+> Right now this is just an example of an SSR-enabled YEW app (currently a clone of my [personal site](https://implfuture.dev))
 > Opinionated full-stack rust web framework
 > 🚧 UNDER CONSTRUCTION 🚧
 
