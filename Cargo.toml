@@ -17,10 +17,13 @@ log = "0.4"
 # yew = "0.19.3"
 # yew-router = "0.16.0"
 stylist = { version = "0.10.1", features = ["yew"] }
-yew = { path = "../yew/packages/yew", features = ["hydration"] }
-yew-router = { path = "../yew/packages/yew-router" }
+yew = { version = "0.19", features = ["hydration"] }
+yew-router = { version = "0.16.0" }
 
 [patch.'crates-io']
-yew = { path = "../yew/packages/yew" }
+# yew = { path = "../yew/packages/yew" }
+# yew-router = { path = "../yew/packages/yew-router" }
+yew = { git = "https://github.com/kcking/yew", branch = "mdx" }
+yew-router = { git = "https://github.com/kcking/yew", branch = "mdx" }
 
 [target.'cfg(not(target_arch = "wasm32"))'.dependencies]
