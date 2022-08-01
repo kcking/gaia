@@ -1,3 +1,4 @@
+mod blog;
 mod projects;
 
 use std::collections::HashMap;
@@ -14,7 +15,9 @@ pub enum Route {
     #[at("/")]
     Home,
     #[at("/blog")]
-    Blog,
+    BlogIndex,
+    #[at("/blog/:slug")]
+    BlogPost { slug: String },
     #[at("/projects")]
     Projects,
 }
@@ -56,7 +59,7 @@ fn Navbar() -> Html {
                 <Link<Route> to={Route::Home} classes="p-4" >{"impl Future {}"}</Link<Route>>
             </h1>
             <div class="flex items-center">
-                <Link<Route> classes="p-4 text-3xl" to={Route::Blog}>
+                <Link<Route> classes="p-4 text-3xl" to={Route::BlogIndex}>
                     <button >
                         {"Blog"}
                     </button>
@@ -111,9 +114,12 @@ fn switch(route: Route) -> Html {
                         </div>
                         </>
                     },
-                    Route::Blog => html! {
+                    Route::BlogIndex => html! {
                         "Blog"
                     },
+                    Route::BlogPost{slug} => {
+                        blog::render(&slug)
+                    }
                     Route::Projects => html! {
                         <Projects />
                     },
