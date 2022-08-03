@@ -1117,6 +1117,7 @@ dependencies = [
  "env_logger",
  "futures",
  "gaia",
+ "lazy_static",
  "num_cpus",
  "once_cell",
  "tokio",

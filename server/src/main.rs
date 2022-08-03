@@ -19,7 +19,11 @@ use tower::Service;
 use tower_http::services::ServeDir;
 use yew_router::Routable;
 
-const INDEX_HTML: &str = include_str!("../../dist/index.html");
+lazy_static::lazy_static!(
+    static ref INDEX_HTML: String = {
+        String::from_utf8( std::fs::read("static/index.bzl.html").unwrap().try_into().unwrap()).unwrap()
+    };
+);
 static LOCAL_POOL: Lazy<LocalPoolHandle> = Lazy::new(|| LocalPoolHandle::new(num_cpus::get()));
 
 async fn index(
@@ -44,8 +48,17 @@ async fn index(
     Html(index_html_s.replace("<body>", &format!("<body>{}", out)))
 }
 
+fn debug_dirs() -> Result<()> {
+    for d in std::fs::read_dir(".")? {
+        eprintln!("{:?}", d?.file_name());
+    }
+
+    Ok(())
+}
+
 #[tokio::main]
 async fn main() -> Result<()> {
+    debug_dirs()?;
     let route_service = RoutableService::<gaia::Route, _, _>::new(
         get(index),
         get_service(ServeDir::new("dist")).handle_error(|e| async move {
@@ -55,7 +68,9 @@ async fn main() -> Result<()> {
     );
     let route_service = get_service(route_service).layer(Extension(INDEX_HTML.to_string()));
 
-    axum::Server::bind(&"127.0.0.1:8080".parse()?)
+    let addr = "127.0.0.1:8080";
+    eprintln!("starting server on {}", addr);
+    axum::Server::bind(&addr.parse()?)
         .serve(get_service(route_service).into_make_service())
         .await?;
 

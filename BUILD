@@ -33,3 +33,9 @@ rust_library(
         normal = True,
     ),
 )
+
+filegroup(
+    name = "static_files",
+    srcs = glob(["static/**"]),
+    visibility = ["//server:__subpackages__"],
+)
