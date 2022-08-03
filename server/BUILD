@@ -5,6 +5,7 @@ rust_binary(
     name = "server",
     srcs = glob(["src/**/*.rs"]),
     aliases = aliases(),
+    data = ["//:app"],
     edition = "2021",
     proc_macro_deps = all_crate_deps(
         proc_macro = True,
