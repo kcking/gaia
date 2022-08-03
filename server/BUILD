@@ -6,7 +6,7 @@ rust_binary(
     srcs = glob(["src/**/*.rs"]),
     aliases = aliases(),
     data = [
-        "//:app",
+        "//:app_wasm",
         "//:static_files",
     ],
     edition = "2021",

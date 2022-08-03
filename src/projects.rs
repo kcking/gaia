@@ -50,7 +50,7 @@ fn Project(props: &ProjectProps) -> Html {
 pub fn Projects() -> Html {
     html! {
         <div class="flex flex-wrap gap-10 justify-center max-w-6xl">
-        <Project name="Bevy OpenXR" image="url(/static/img/bevy.svg)" description={html!{
+        <Project name="Bevy OpenXR" image="url(/img/bevy.svg)" description={html!{
             <>
             {"Unity and Unreal Engine are practically the only options when
             developing VR games and experiences. I am actively bringing OpenXR
@@ -60,7 +60,7 @@ pub fn Projects() -> Html {
             </>
         }} />
 
-        <Project name="Ovrlay" image="url(/static/img/ovrlay.svg)" description={html!{
+        <Project name="Ovrlay" image="url(/img/ovrlay.svg)" description={html!{
             <>
                 {"View Discord notifications while you're in VR. Built with OpenVR
                 rust bindings and "}
@@ -74,7 +74,7 @@ pub fn Projects() -> Html {
             </>
         }} />
 
-        <Project name="Bigroom" image="url(/static/img/bigroom.svg)" description={html!{
+        <Project name="Bigroom" image="url(/img/bigroom.svg)" description={html!{
             <>
             {"Social video chat for large groups. Built with WebRTC and WebAudio,
         works directly in the browser. Full stack Rust web application using "}
@@ -82,7 +82,7 @@ pub fn Projects() -> Html {
             </>
         }} />
 
-        <Project name="Just Fly" image="url(/static/img/justfly.png)" description={html!{
+        <Project name="Just Fly" image="url(/img/justfly.png)" description={html!{
             <>
                 {"A mod for the factory simulation game "}
                 <a href="https://www.satisfactorygame.com/">{"Satisfactory"}</a>{". Provides
@@ -93,7 +93,7 @@ pub fn Projects() -> Html {
             </>
         }} />
 
-        <Project name="Clickhouse" image="url(/static/img/clickhouse.svg)" description={html!{
+        <Project name="Clickhouse" image="url(/img/clickhouse.svg)" description={html!{
             <>
             {"Rearchitected "}<a href="https://mux.com">{"Mux"}</a>
             {"'s video analytics product from Citus to "}
@@ -110,7 +110,7 @@ pub fn Projects() -> Html {
             </>
         }} />
 
-        <Project name="Krypton" image="url(/static/img/krypton.svg)" description={html!{
+        <Project name="Krypton" image="url(/img/krypton.svg)" description={html!{
             <>
             <a href="https://krypt.co" rel="noopener noreferrer">
             {"Phone-based phishing-proof 2FA."}
@@ -120,7 +120,7 @@ pub fn Projects() -> Html {
             </>
         }} />
 
-        <Project name="Ears" image="url(/static/img/chrome.svg)" description={html!{
+        <Project name="Ears" image="url(/img/chrome.svg)" description={html!{
             <>
             <a
             href="https://chrome.google.com/webstore/detail/ears-bass-boost-eq-any-au/nfdfiepdkbnoanddpianalelglmfooik"

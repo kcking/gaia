@@ -3,7 +3,7 @@ load("@rules_rust//wasm_bindgen:wasm_bindgen.bzl", "rust_wasm_bindgen")
 load("@rules_rust//rust:defs.bzl", "rust_binary", "rust_library", "rust_shared_library", "rust_test")
 load(":defs.bzl", "wasm_rust_binary")
 
-wasm_rust_binary(
+rust_binary(
     name = "app",
     srcs = ["src/bin/app.rs"],
     aliases = aliases(),
@@ -14,7 +14,10 @@ wasm_rust_binary(
     visibility = ["//server:__subpackages__"],
     deps = all_crate_deps(
         normal = True,
-    ) + [":gaia"],
+    ) + [
+        ":gaia",
+        "@rules_rust//wasm_bindgen/3rdparty:wasm_bindgen",
+    ],
 )
 
 rust_library(
@@ -32,6 +35,13 @@ rust_library(
     deps = all_crate_deps(
         normal = True,
     ),
+)
+
+rust_wasm_bindgen(
+    name = "app_wasm",
+    target = "web",
+    visibility = ["//server:__subpackages__"],
+    wasm_file = ":app",
 )
 
 filegroup(

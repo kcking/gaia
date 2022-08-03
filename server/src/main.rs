@@ -3,11 +3,12 @@ use std::convert::Infallible;
 use std::marker::PhantomData;
 
 use anyhow::Result;
-use axum::body::{Body, BoxBody};
+use axum::body::{Body, BoxBody, Bytes};
 use axum::extract::Query;
-use axum::http::{Request, Response, StatusCode};
+use axum::http::header::HeaderName;
+use axum::http::{HeaderMap, HeaderValue, Request, Response, StatusCode};
 use axum::response::{Html, IntoResponse};
-use axum::routing::get_service;
+use axum::routing::{get_service, MethodRouter};
 use axum::Extension;
 use axum::{routing::get, Router};
 use futures::future::BoxFuture;
@@ -22,6 +23,12 @@ use yew_router::Routable;
 lazy_static::lazy_static!(
     static ref INDEX_HTML: String = {
         String::from_utf8( std::fs::read("static/index.bzl.html").unwrap().try_into().unwrap()).unwrap()
+    };
+    static ref APP_JS: Bytes = {
+        Bytes::from(std::fs::read("app_wasm.js").unwrap())
+    };
+    static ref APP_WASM_BG: Bytes = {
+        Bytes::from(std::fs::read("app_wasm_bg.wasm").unwrap())
     };
 );
 static LOCAL_POOL: Lazy<LocalPoolHandle> = Lazy::new(|| LocalPoolHandle::new(num_cpus::get()));
@@ -56,15 +63,45 @@ fn debug_dirs() -> Result<()> {
     Ok(())
 }
 
+async fn serve_app_js() -> impl IntoResponse {
+    (
+        HeaderMap::from_iter(
+            [(
+                HeaderName::from_static("content-type"),
+                HeaderValue::from_static("text/javascript"),
+            )]
+            .into_iter(),
+        ),
+        APP_JS.clone(),
+    )
+}
+
+async fn serve_app_wasm() -> impl IntoResponse {
+    (
+        HeaderMap::from_iter(
+            [(
+                HeaderName::from_static("content-type"),
+                HeaderValue::from_static("application/wasm"),
+            )]
+            .into_iter(),
+        ),
+        APP_WASM_BG.clone(),
+    )
+}
+
 #[tokio::main]
 async fn main() -> Result<()> {
     debug_dirs()?;
     let route_service = RoutableService::<gaia::Route, _, _>::new(
         get(index),
-        get_service(ServeDir::new("dist")).handle_error(|e| async move {
-            dbg!(e);
-            StatusCode::BAD_REQUEST
-        }),
+        route("/app_wasm.js", get(serve_app_js))
+            .route("/app_wasm_bg.wasm", get(serve_app_wasm))
+            .fallback(
+                get_service(ServeDir::new("static")).handle_error(|e| async move {
+                    dbg!(e);
+                    StatusCode::BAD_REQUEST
+                }),
+            ),
     );
     let route_service = get_service(route_service).layer(Extension(INDEX_HTML.to_string()));
 
@@ -133,6 +170,7 @@ where
         }
     }
 
+    //  send known paths to Yew to be SSR'd, otherwise fall-back to `f`
     fn call(&mut self, req: Request<Body>) -> Self::Future {
         //  TODO: think about how this treats not_found_path
         match <R as Routable>::recognize(req.uri().path()).is_some() {
@@ -154,4 +192,8 @@ where
             }
         }
     }
+}
+
+fn route(path: &str, method_router: MethodRouter) -> Router {
+    Router::new().route(path, method_router)
 }
