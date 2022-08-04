@@ -1,3 +1,4 @@
+use time::macros::date;
 use yew::{function_component, html, mdx, use_state, Html, Properties};
 
 #[derive(Properties, PartialEq)]
@@ -326,16 +327,24 @@ pull request this site on [GitHub](https://github.com/kcking/implfuture.dev)!
 }
 
 struct Metadata {
-    title: String,
+    title: &'static str,
     date: time::Date,
+    slug: &'static str,
 }
 
-const BLOG_POSTS: &[(&str, &dyn Fn() -> Html)] = &[("building-a-blog-like-its-2022", &first_post)];
+const BLOG_POSTS: &[(Metadata, &dyn Fn() -> Html)] = &[(
+    Metadata {
+        date: date!(2022 - 2 - 15),
+        slug: "building-a-blog-like-its-2022",
+        title: "Building a Blog Like it's 2022 ✨",
+    },
+    &first_post,
+)];
 
 pub fn render(slug: &str) -> Html {
     BLOG_POSTS
         .iter()
-        .find(|(find_slug, _)| &slug == find_slug)
+        .find(|(meta, _)| &slug == &meta.slug)
         .map(|(_, post)| post())
         .unwrap_or(mdx! {r#"Post not found :("#})
 }
@@ -343,9 +352,9 @@ pub fn render(slug: &str) -> Html {
 pub fn blog_index() -> Html {
     BLOG_POSTS
         .iter()
-        .map(|(slug, _)| {
+        .map(|(metadata, _)| {
             html! {
-              <a href={"/blog/".to_string() + slug}>{slug.to_string()}</a>
+              <a href={"/blog/".to_string() + metadata.slug}>{&metadata.title}</a>
             }
         })
         .collect()
