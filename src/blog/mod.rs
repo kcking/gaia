@@ -325,6 +325,11 @@ pull request this site on [GitHub](https://github.com/kcking/implfuture.dev)!
 "#    }
 }
 
+struct Metadata {
+    title: String,
+    date: time::Date,
+}
+
 const BLOG_POSTS: &[(&str, &dyn Fn() -> Html)] = &[("building-a-blog-like-its-2022", &first_post)];
 
 pub fn render(slug: &str) -> Html {
@@ -333,4 +338,15 @@ pub fn render(slug: &str) -> Html {
         .find(|(find_slug, _)| &slug == find_slug)
         .map(|(_, post)| post())
         .unwrap_or(mdx! {r#"Post not found :("#})
+}
+
+pub fn blog_index() -> Html {
+    BLOG_POSTS
+        .iter()
+        .map(|(slug, _)| {
+            html! {
+              <a href={"/blog/".to_string() + slug}>{slug.to_string()}</a>
+            }
+        })
+        .collect()
 }
