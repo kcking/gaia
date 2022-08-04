@@ -19,7 +19,7 @@ log = "0.4"
 stylist = { version = "0.10.1", features = ["yew"] }
 yew = { version = "0.19", features = ["hydration"] }
 yew-router = { version = "0.16.0" }
-time = { version = "0.3.12", features = ["macros"] }
+time = { version = "0.3.12", features = ["macros", "formatting"] }
 
 [patch.'crates-io']
 # yew = { path = "../yew/packages/yew" }

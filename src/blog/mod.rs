@@ -330,6 +330,7 @@ struct Metadata {
     title: &'static str,
     date: time::Date,
     slug: &'static str,
+    subtitle: &'static str,
 }
 
 const BLOG_POSTS: &[(Metadata, &dyn Fn() -> Html)] = &[(
@@ -337,6 +338,7 @@ const BLOG_POSTS: &[(Metadata, &dyn Fn() -> Html)] = &[(
         date: date!(2022 - 2 - 15),
         slug: "building-a-blog-like-its-2022",
         title: "Building a Blog Like it's 2022 ✨",
+        subtitle: "With Next.js, typescript, react, mdx, rust + wasm",
     },
     &first_post,
 )];
@@ -350,11 +352,20 @@ pub fn render(slug: &str) -> Html {
 }
 
 pub fn blog_index() -> Html {
+    let fmt = time::macros::format_description!("[month repr:short] [day], [year]");
     BLOG_POSTS
         .iter()
         .map(|(metadata, _)| {
             html! {
-              <a href={"/blog/".to_string() + metadata.slug}>{&metadata.title}</a>
+              <div class="py-4">
+              <a class="text-inherit" href={"/blog/".to_string() + metadata.slug}>
+                <h1 class="text-4xl font-display">
+                  {&metadata.title}
+                </h1>
+                <div> {&metadata.subtitle} </div>
+                <div class="text-xl"> {&metadata.date.clone().format(&fmt).unwrap_or_default()} </div>
+              </a>
+              </div>
             }
         })
         .collect()
