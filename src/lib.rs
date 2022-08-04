@@ -115,13 +115,17 @@ fn switch(route: Route) -> Html {
                         </>
                     },
                     Route::BlogIndex => html! {
-                        "Blog"
+                        <div class="w-full font-body text-3xl my-10 flex justify-evenly px-2 flex-wrap">
+                            {"Blog"}
+                        </div>
                     },
                     Route::BlogPost{slug} => {
                         blog::render(&slug)
                     }
                     Route::Projects => html! {
-                        <Projects />
+                        <div class="w-full flex justify-evenly px-2 flex-wrap">
+                            <Projects />
+                        </div>
                     },
                 }
             }

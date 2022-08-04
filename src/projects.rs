@@ -56,7 +56,7 @@ pub fn Projects() -> Html {
             developing VR games and experiences. I am actively bringing OpenXR
             support to the "}<a href="https://bevyengine.org">{"Bevy game
             engine"}</a>{" in order to spread the benefits of rust to XR
-            development."}
+            development. "}
             </>
         }} />
 

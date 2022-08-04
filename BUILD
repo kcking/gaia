@@ -46,6 +46,14 @@ rust_wasm_bindgen(
 
 filegroup(
     name = "static_files",
-    srcs = glob(["static/**"]),
+    srcs = glob(["static/**"]) + [":tailwind"],
     visibility = ["//server:__subpackages__"],
+)
+
+genrule(
+    name = "tailwind",
+    srcs = glob(["src/**/*.rs"]) + ["tailwind.config.js"],
+    outs = ["static/tailwind.css"],
+    cmd = "node bazel-out/host/bin/external/npm/node_modules/tailwindcss/lib/cli.js --output=$(OUTS)",
+    tools = ["@npm//tailwindcss"],
 )

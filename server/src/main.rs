@@ -91,7 +91,6 @@ async fn serve_app_wasm() -> impl IntoResponse {
 
 #[tokio::main]
 async fn main() -> Result<()> {
-    debug_dirs()?;
     let route_service = RoutableService::<gaia::Route, _, _>::new(
         get(index),
         route("/app_wasm.js", get(serve_app_js))
