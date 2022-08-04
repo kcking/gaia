@@ -30,7 +30,7 @@ fn Counter() -> Html {
     }
 }
 
-fn first_post() -> Html {
+fn first_post(md: &Metadata) -> Html {
     mdx! {r#"
 # {meta.title}
 
@@ -333,7 +333,7 @@ struct Metadata {
     subtitle: &'static str,
 }
 
-const BLOG_POSTS: &[(Metadata, &dyn Fn() -> Html)] = &[(
+const BLOG_POSTS: &[(Metadata, &dyn Fn(&Metadata) -> Html)] = &[(
     Metadata {
         date: date!(2022 - 2 - 15),
         slug: "building-a-blog-like-its-2022",
@@ -347,7 +347,7 @@ pub fn render(slug: &str) -> Html {
     BLOG_POSTS
         .iter()
         .find(|(meta, _)| &slug == &meta.slug)
-        .map(|(_, post)| post())
+        .map(|(meta, post)| post(meta))
         .unwrap_or(mdx! {r#"Post not found :("#})
 }
 
@@ -358,13 +358,13 @@ pub fn blog_index() -> Html {
         .map(|(metadata, _)| {
             html! {
               <div class="py-4">
-              <a class="text-inherit" href={"/blog/".to_string() + metadata.slug}>
-                <h1 class="text-4xl font-display">
-                  {&metadata.title}
-                </h1>
-                <div> {&metadata.subtitle} </div>
-                <div class="text-xl"> {&metadata.date.clone().format(&fmt).unwrap_or_default()} </div>
-              </a>
+                <a class="text-inherit" href={"/blog/".to_string() + metadata.slug}>
+                  <h1 class="text-4xl font-display">
+                    {&metadata.title}
+                  </h1>
+                  <div> {&metadata.subtitle} </div>
+                  <div class="text-xl"> {&metadata.date.clone().format(&fmt).unwrap_or_default()} </div>
+                </a>
               </div>
             }
         })

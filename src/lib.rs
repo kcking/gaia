@@ -56,7 +56,7 @@ fn Navbar() -> Html {
     html! {
         <div class="flex justify-evenly flex-wrap w-full navbar">
             <h1 class="font-display text-6xl p-10">
-                <Link<Route> to={Route::Home} classes="p-4" >{"impl Future {}"}</Link<Route>>
+                <Link<Route> to={Route::Home}><div class="p-4">{"impl Future {}"}</div></Link<Route>>
             </h1>
             <div class="flex items-center">
                 <Link<Route> classes="p-4 text-3xl" to={Route::BlogIndex}>
@@ -115,7 +115,7 @@ fn switch(route: Route) -> Html {
                         </>
                     },
                     Route::BlogIndex => html! {
-                        <div class="w-full font-body my-10 flex justify-evenly px-2 flex-wrap">
+                        <div class="w-full font-body flex justify-evenly px-2 flex-wrap">
                             {blog::blog_index()}
                         </div>
                     },
