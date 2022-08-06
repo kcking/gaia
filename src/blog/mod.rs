@@ -1,5 +1,23 @@
 use time::macros::date;
-use yew::{function_component, html, mdx, use_state, Html, Properties};
+use yew::{function_component, html, mdx, mdx_style, use_state, Children, Html, Properties};
+
+mdx_style!(h1: MyH1,);
+
+#[derive(PartialEq, Properties)]
+struct MyH1Props {
+    #[prop_or_default]
+    children: Children,
+}
+#[function_component]
+fn MyH1(c: &MyH1Props) -> Html {
+    html! {
+      <a href="#">
+        <h1>
+          {c.children.clone()}
+        </h1>
+      </a>
+    }
+}
 
 #[derive(Properties, PartialEq)]
 struct HeyProps {
@@ -344,11 +362,16 @@ const BLOG_POSTS: &[(Metadata, &dyn Fn(&Metadata) -> Html)] = &[(
 )];
 
 pub fn render(slug: &str) -> Html {
-    BLOG_POSTS
+    let post_content = BLOG_POSTS
         .iter()
         .find(|(meta, _)| &slug == &meta.slug)
         .map(|(meta, post)| post(meta))
-        .unwrap_or(mdx! {r#"Post not found :("#})
+        .unwrap_or(mdx! {r#"Post not found :("#});
+    html! {
+      <div class="max-w-4xl p-2">
+        {post_content}
+      </div>
+    }
 }
 
 pub fn blog_index() -> Html {
