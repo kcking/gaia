@@ -4,12 +4,12 @@ use yew::{function_component, html, mdx, mdx_style, use_state, Children, Html, P
 mdx_style!(h1: MyH1,);
 
 #[derive(PartialEq, Properties)]
-struct MyH1Props {
+struct ChildProps {
     #[prop_or_default]
     children: Children,
 }
 #[function_component]
-fn MyH1(c: &MyH1Props) -> Html {
+fn MyH1(c: &ChildProps) -> Html {
     html! {
       <a href="#">
         <h1>
@@ -49,8 +49,10 @@ fn Counter() -> Html {
 }
 
 fn first_post(md: &Metadata) -> Html {
+    //  TODO: figure out how to embed dynamic content into mdx.
+    //  could do this by parsing {} delimiters in text commonmark nodes
     mdx! {r#"
-# {meta.title}
+# Building a Blog like it's 2022 ✨
 
 > This is a work-in-progress post about how I built this site. You can check out the source code on
 > [GitHub](https://github.com/kcking/implfuture.dev).
