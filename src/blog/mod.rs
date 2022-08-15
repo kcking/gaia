@@ -1,3 +1,4 @@
+use log::info;
 use time::macros::date;
 use yew::{function_component, html, mdx, mdx_style, use_state, Children, Html, Properties};
 
@@ -10,9 +11,20 @@ struct ChildProps {
 }
 #[function_component]
 fn MyH1(c: &ChildProps) -> Html {
+    let mut tag = String::new();
+    for c in c.children.iter() {
+        match c {
+            yew::virtual_dom::VNode::VText(t) => {
+                tag += &t.text.to_string();
+            }
+            _ => (),
+        };
+    }
+    tag = tag.replace(" ", "-").to_lowercase();
+    tag.truncate(12);
     html! {
-      <a href="#">
-        <h1>
+      <a href={format!("#{tag}")}>
+        <h1 id={tag}>
           {c.children.clone()}
         </h1>
       </a>
