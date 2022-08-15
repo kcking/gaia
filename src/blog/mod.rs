@@ -2,7 +2,13 @@ use log::info;
 use time::macros::date;
 use yew::{function_component, html, mdx, mdx_style, use_state, Children, Html, Properties};
 
-mdx_style!(h1: MyH1,);
+mdx_style!(
+    h1: MyH1,
+    h2: MyH2,
+    pre: MyPre,
+    blockquote: MyBlockquote,
+    p: MyP
+);
 
 #[derive(PartialEq, Properties)]
 struct ChildProps {
@@ -23,11 +29,60 @@ fn MyH1(c: &ChildProps) -> Html {
     tag = tag.replace(" ", "-").to_lowercase();
     tag.truncate(12);
     html! {
-      <a href={format!("#{tag}")}>
-        <h1 id={tag}>
+      <a class="text-inherit" href={format!("#{tag}")}>
+        <h1 id={tag} class="text-4xl py-4">
           {c.children.clone()}
         </h1>
       </a>
+    }
+}
+
+#[function_component]
+fn MyH2(c: &ChildProps) -> Html {
+    let mut tag = String::new();
+    for c in c.children.iter() {
+        match c {
+            yew::virtual_dom::VNode::VText(t) => {
+                tag += &t.text.to_string();
+            }
+            _ => (),
+        };
+    }
+    tag = tag.replace(" ", "-").to_lowercase();
+    tag.truncate(12);
+    html! {
+      <a class="text-inherit" href={format!("#{tag}")}>
+        <h2 id={tag} class="text-2xl py-4">
+          {c.children.clone()}
+        </h2>
+      </a>
+    }
+}
+
+#[function_component]
+fn MyPre(c: &ChildProps) -> Html {
+    html! {
+      <pre class="overflow-auto m-4 p-6 bg-gray-300/5 rounded">
+        {c.children.clone()}
+      </pre>
+    }
+}
+
+#[function_component]
+fn MyBlockquote(c: &ChildProps) -> Html {
+    html! {
+      <blockquote class="text-black/70 dark:text-white/50 border-l-8 px-2 my-2 italic">
+        {c.children.clone()}
+      </blockquote>
+    }
+}
+
+#[function_component]
+fn MyP(c: &ChildProps) -> Html {
+    html! {
+      <p class="py-2 text-lg">
+        {c.children.clone()}
+      </p>
     }
 }
 
