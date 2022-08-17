@@ -4,6 +4,8 @@ use log::info;
 use time::macros::date;
 use yew::{function_component, html, mdx, mdx_style, use_state, Children, Html, Properties};
 
+use crate::blog::syntaxhighlight::HighlightCode;
+
 mdx_style!(
     h1: MyH1,
     h2: MyH2,
@@ -67,7 +69,7 @@ fn MyH2(c: &ChildProps) -> Html {
 fn MyPre(c: &ChildProps) -> Html {
     html! {
       <pre class="overflow-auto m-4 p-6 bg-gray-300/5 rounded">
-        {c.children.clone()}
+      <HighlightCode>{c.children.clone()}</HighlightCode>
       </pre>
     }
 }
