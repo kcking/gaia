@@ -20,6 +20,7 @@ stylist = { version = "0.10.1", features = ["yew"] }
 yew = { version = "0.19", features = ["hydration"] }
 yew-router = { version = "0.16.0" }
 time = { version = "0.3.12", features = ["macros", "formatting"] }
+syntect = "5.0.0"
 
 [patch.'crates-io']
 # yew = { path = "../yew/packages/yew" }

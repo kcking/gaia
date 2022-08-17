@@ -1,3 +1,5 @@
+mod syntaxhighlight;
+
 use log::info;
 use time::macros::date;
 use yew::{function_component, html, mdx, mdx_style, use_state, Children, Html, Properties};
@@ -13,7 +15,7 @@ mdx_style!(
 );
 
 #[derive(PartialEq, Properties)]
-struct ChildProps {
+pub struct ChildProps {
     #[prop_or_default]
     children: Children,
 }
