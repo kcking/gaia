@@ -7,7 +7,9 @@ mdx_style!(
     h2: MyH2,
     pre: MyPre,
     blockquote: MyBlockquote,
-    p: MyP
+    p: MyP,
+    li: MyLi,
+    ul: MyUl,
 );
 
 #[derive(PartialEq, Properties)]
@@ -83,6 +85,23 @@ fn MyP(c: &ChildProps) -> Html {
       <p class="py-2 text-lg">
         {c.children.clone()}
       </p>
+    }
+}
+
+//  ul: ({ children }) => <div className="px-4">{children}</div>,
+// li: ({ children }) => <p className="py-1"> - {children}</p>,
+
+#[function_component]
+fn MyUl(c: &ChildProps) -> Html {
+    html! {
+      <div class="px-4">{c.children.clone()}</div>
+    }
+}
+
+#[function_component]
+fn MyLi(c: &ChildProps) -> Html {
+    html! {
+      <p class="py-1">{" - "}{c.children.clone()}</p>
     }
 }
 

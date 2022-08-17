@@ -1634,7 +1634,7 @@ checksum = "c811ca4a8c853ef420abd8592ba53ddbbac90410fab6903b3e79972a631f7680"
 [[package]]
 name = "yew"
 version = "0.19.3"
-source = "git+https://github.com/kcking/yew?branch=mdx#9c17dddb1492fac7e7d4e98753ff9f7534a48049"
+source = "git+https://github.com/kcking/yew?branch=mdx#2725822f36e17e57f5c1d779a97c128aa27eeefb"
 dependencies = [
  "base64ct",
  "bincode",
@@ -1658,7 +1658,7 @@ dependencies = [
 [[package]]
 name = "yew-macro"
 version = "0.19.3"
-source = "git+https://github.com/kcking/yew?branch=mdx#9c17dddb1492fac7e7d4e98753ff9f7534a48049"
+source = "git+https://github.com/kcking/yew?branch=mdx#2725822f36e17e57f5c1d779a97c128aa27eeefb"
 dependencies = [
  "boolinator",
  "chumsky",
@@ -1675,7 +1675,7 @@ dependencies = [
 [[package]]
 name = "yew-router"
 version = "0.16.0"
-source = "git+https://github.com/kcking/yew?branch=mdx#9c17dddb1492fac7e7d4e98753ff9f7534a48049"
+source = "git+https://github.com/kcking/yew?branch=mdx#2725822f36e17e57f5c1d779a97c128aa27eeefb"
 dependencies = [
  "gloo",
  "js-sys",
@@ -1691,7 +1691,7 @@ dependencies = [
 [[package]]
 name = "yew-router-macro"
 version = "0.16.0"
-source = "git+https://github.com/kcking/yew?branch=mdx#9c17dddb1492fac7e7d4e98753ff9f7534a48049"
+source = "git+https://github.com/kcking/yew?branch=mdx#2725822f36e17e57f5c1d779a97c128aa27eeefb"
 dependencies = [
  "proc-macro2",
  "quote",
