@@ -64,7 +64,7 @@ fn try_highlight_code(c: &Children) -> Option<Html> {
     };
     let mut p_state = ParseState::new(syntax);
 
-    let theme = THEME_SET.themes.values().next()?.clone();
+    let theme = THEME_SET.themes.values().next()?;
     let highlighter = Highlighter::new(&theme);
     let mut h_state = HighlightState::new(&highlighter, ScopeStack::new());
 
