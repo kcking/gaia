@@ -1,8 +1,24 @@
-use syntect::parsing::SyntaxSet;
+use syntect::{
+    highlighting::{
+        Color, HighlightIterator, HighlightState, Highlighter, ScopeSelector, ScopeSelectors,
+        ThemeSet,
+    },
+    parsing::{ParseState, Scope, ScopeStack, SyntaxSet},
+    util::LinesWithEndings,
+};
 use yew::{
     prelude::*,
     virtual_dom::{VNode, VTag},
 };
+
+lazy_static::lazy_static! {
+    static ref SYNTAX_SET : SyntaxSet = {
+        SyntaxSet::load_defaults_newlines()
+    };
+    static ref THEME_SET  : ThemeSet = {
+        ThemeSet::load_defaults()
+    };
+}
 
 #[function_component]
 pub fn HighlightCode(c: &super::ChildProps) -> Html {
@@ -37,14 +53,31 @@ fn try_highlight_code(c: &Children) -> Option<Html> {
                 .map(|class| class.split_at("language-".len()).1)
         })
         .flatten();
-    let ss = SyntaxSet::load_defaults_newlines();
+
     let syntax = match code_lang {
-        Some(lang) => ss.find_syntax_by_name(lang).unwrap_or_else(|| {
-            ss.find_syntax_by_extension(lang)
-                .unwrap_or_else(|| ss.find_syntax_plain_text())
+        Some(lang) => SYNTAX_SET.find_syntax_by_name(lang).unwrap_or_else(|| {
+            SYNTAX_SET
+                .find_syntax_by_extension(lang)
+                .unwrap_or_else(|| SYNTAX_SET.find_syntax_plain_text())
         }),
         None => todo!(),
     };
+    let mut p_state = ParseState::new(syntax);
+
+    let theme = THEME_SET.themes.values().next()?.clone();
+    let highlighter = Highlighter::new(&theme);
+    let mut h_state = HighlightState::new(&highlighter, ScopeStack::new());
+
+    let mut spans = vec![];
+    for line in LinesWithEndings::from(code) {
+        let ops = p_state.parse_line(&line, &SYNTAX_SET).ok()?;
+        let h_iter = HighlightIterator::new(&mut h_state, &ops, line, &highlighter);
+        for (style, text) in h_iter {
+            let Color { r, g, b, a } = style.foreground;
+            let style_str = format!("color:rgba({r}, {g}, {b}, {a});");
+            spans.push(html! {<span style={style_str}>{text}</span>});
+        }
+    }
 
     // syntect::parsing::
     // let gen = syntect::html::ClassedHTMLGenerator::new_with_class_style(
@@ -54,6 +87,10 @@ fn try_highlight_code(c: &Children) -> Option<Html> {
     // );
 
     Some(html! {
-        {code}
+        <>
+        {
+            spans.into_iter().collect::<Html>()
+        }
+        </>
     })
 }

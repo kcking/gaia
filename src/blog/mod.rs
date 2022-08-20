@@ -3,8 +3,9 @@ mod syntaxhighlight;
 use log::info;
 use time::macros::date;
 use yew::{function_component, html, mdx, mdx_style, use_state, Children, Html, Properties};
+use yew_router::prelude::Link;
 
-use crate::blog::syntaxhighlight::HighlightCode;
+use crate::{blog::syntaxhighlight::HighlightCode, Route};
 
 mdx_style!(
     h1: MyH1,
@@ -232,7 +233,7 @@ page that uses `getStaticProps` at build time to iterate through all of the
 `.mdx` files in the `blog` folder. Each post `export`s an object called `meta`
 that is shaped like
 
-```typescript
+```ts
 type Meta = {
   date: string;
   title: string;
@@ -334,7 +335,7 @@ The default template calls `alert()` through javascript which will open a dialog
 window (useful for debugging, but so mean to our poor blog readers!). Instead,
 let's add a function to `lib.rs` to return a `String`.
 
-```rust
+```rs
 //  lib.rs
 #[wasm_bindgen]
 pub fn rust_string() -> String {
@@ -473,13 +474,13 @@ pub fn blog_index() -> Html {
         .map(|(metadata, _)| {
             html! {
               <div class="py-4">
-                <a class="text-inherit" href={"/blog/".to_string() + metadata.slug}>
+                <Link<Route> classes="text-inherit" to={Route::BlogPost { slug: metadata.slug.into() }}>
                   <h1 class="text-4xl font-display">
                     {&metadata.title}
                   </h1>
                   <div> {&metadata.subtitle} </div>
                   <div class="text-xl"> {&metadata.date.clone().format(&fmt).unwrap_or_default()} </div>
-                </a>
+                </Link<Route>>
               </div>
             }
         })

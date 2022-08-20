@@ -1,5 +1,5 @@
 {
-  "checksum": "214333f3b2c9f6655acc85fb701b1d76f40f887c3679d59b1d3ff117b10a5048",
+  "checksum": "a5cbf9078e6400a4768961038b52a3c71d7d9c704265464d218423494d043b65",
   "crates": {
     "adler 1.0.2": {
       "name": "adler",
@@ -1032,13 +1032,13 @@
       },
       "license": "MIT/Apache-2.0"
     },
-    "bumpalo 3.10.0": {
+    "bumpalo 3.11.0": {
       "name": "bumpalo",
-      "version": "3.10.0",
+      "version": "3.11.0",
       "repository": {
         "Http": {
-          "url": "https://crates.io/api/v1/crates/bumpalo/3.10.0/download",
-          "sha256": "37ccbd214614c6783386c1af30caf03192f17891059cecc394b4fb119e363de3"
+          "url": "https://crates.io/api/v1/crates/bumpalo/3.11.0/download",
+          "sha256": "c1ad822118d20d2c234f427000d5acc36eabe1e29a348c89b63dd60b13f28e5d"
         }
       },
       "targets": [
@@ -1063,8 +1063,8 @@
         "crate_features": [
           "default"
         ],
-        "edition": "2018",
-        "version": "3.10.0"
+        "edition": "2021",
+        "version": "3.11.0"
       },
       "license": "MIT/Apache-2.0"
     },
@@ -1671,13 +1671,13 @@
       },
       "license": "MIT"
     },
-    "either 1.7.0": {
+    "either 1.8.0": {
       "name": "either",
-      "version": "1.7.0",
+      "version": "1.8.0",
       "repository": {
         "Http": {
-          "url": "https://crates.io/api/v1/crates/either/1.7.0/download",
-          "sha256": "3f107b87b6afc2a64fd13cac55fe06d6c8859f12d4b14cbcdd2c67d0976781be"
+          "url": "https://crates.io/api/v1/crates/either/1.8.0/download",
+          "sha256": "90e5c1c8368803113bf0c9584fc495a58b86dc8a29edbf8fe877d21d9507e797"
         }
       },
       "targets": [
@@ -1700,7 +1700,7 @@
           "**"
         ],
         "edition": "2018",
-        "version": "1.7.0"
+        "version": "1.8.0"
       },
       "license": "MIT/Apache-2.0"
     },
@@ -2609,6 +2609,10 @@
         ],
         "deps": {
           "common": [
+            {
+              "id": "lazy_static 1.4.0",
+              "target": "lazy_static"
+            },
             {
               "id": "log 0.4.17",
               "target": "log"
@@ -4304,7 +4308,7 @@
         "deps": {
           "common": [
             {
-              "id": "either 1.7.0",
+              "id": "either 1.8.0",
               "target": "either"
             }
           ],
@@ -9205,7 +9209,7 @@
         "deps": {
           "common": [
             {
-              "id": "bumpalo 3.10.0",
+              "id": "bumpalo 3.11.0",
               "target": "bumpalo"
             },
             {
