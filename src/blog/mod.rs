@@ -10,8 +10,8 @@ use crate::{blog::syntaxhighlight::HighlightCode, Route};
 mdx_style!(
     h1: MyH1,
     h2: MyH2,
-    pre: MyPre,
     blockquote: MyBlockquote,
+    pre: MyPre,
     p: MyP,
     li: MyLi,
     ul: MyUl,
@@ -335,7 +335,7 @@ The default template calls `alert()` through javascript which will open a dialog
 window (useful for debugging, but so mean to our poor blog readers!). Instead,
 let's add a function to `lib.rs` to return a `String`.
 
-```rs
+```rust
 //  lib.rs
 #[wasm_bindgen]
 pub fn rust_string() -> String {

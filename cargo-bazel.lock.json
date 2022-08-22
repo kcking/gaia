@@ -1,5 +1,5 @@
 {
-  "checksum": "a5cbf9078e6400a4768961038b52a3c71d7d9c704265464d218423494d043b65",
+  "checksum": "a83aa93477702a54f282c06dec72badb6682ea6427522ef79a7d09b2b265d087",
   "crates": {
     "adler 1.0.2": {
       "name": "adler",
@@ -560,11 +560,11 @@
               "target": "pin_project_lite"
             },
             {
-              "id": "serde 1.0.143",
+              "id": "serde 1.0.144",
               "target": "serde"
             },
             {
-              "id": "serde_json 1.0.83",
+              "id": "serde_json 1.0.85",
               "target": "serde_json"
             },
             {
@@ -870,7 +870,7 @@
         "deps": {
           "common": [
             {
-              "id": "serde 1.0.143",
+              "id": "serde 1.0.144",
               "target": "serde"
             }
           ],
@@ -2634,6 +2634,10 @@
               "target": "wasm_bindgen"
             },
             {
+              "id": "web-sys 0.3.58",
+              "target": "web_sys"
+            },
+            {
               "id": "yew 0.19.3",
               "target": "yew"
             },
@@ -2781,7 +2785,7 @@
         "deps": {
           "common": [
             {
-              "id": "gloo-console 0.2.1",
+              "id": "gloo-console 0.2.3",
               "target": "gloo_console"
             },
             {
@@ -2801,7 +2805,7 @@
               "target": "gloo_history"
             },
             {
-              "id": "gloo-net 0.2.3",
+              "id": "gloo-net 0.2.4",
               "target": "gloo_net"
             },
             {
@@ -2809,7 +2813,7 @@
               "target": "gloo_render"
             },
             {
-              "id": "gloo-storage 0.2.1",
+              "id": "gloo-storage 0.2.2",
               "target": "gloo_storage"
             },
             {
@@ -2817,7 +2821,7 @@
               "target": "gloo_timers"
             },
             {
-              "id": "gloo-utils 0.1.4",
+              "id": "gloo-utils 0.1.5",
               "target": "gloo_utils"
             },
             {
@@ -2832,13 +2836,13 @@
       },
       "license": "MIT/Apache-2.0"
     },
-    "gloo-console 0.2.1": {
+    "gloo-console 0.2.3": {
       "name": "gloo-console",
-      "version": "0.2.1",
+      "version": "0.2.3",
       "repository": {
         "Http": {
-          "url": "https://crates.io/api/v1/crates/gloo-console/0.2.1/download",
-          "sha256": "3907f786f65bbb4f419e918b0c5674175ef1c231ecda93b2dbd65fd1e8882637"
+          "url": "https://crates.io/api/v1/crates/gloo-console/0.2.3/download",
+          "sha256": "82b7ce3c05debe147233596904981848862b068862e9ec3e34be446077190d3f"
         }
       },
       "targets": [
@@ -2863,11 +2867,15 @@
         "deps": {
           "common": [
             {
+              "id": "gloo-utils 0.1.5",
+              "target": "gloo_utils"
+            },
+            {
               "id": "js-sys 0.3.58",
               "target": "js_sys"
             },
             {
-              "id": "serde 1.0.143",
+              "id": "serde 1.0.144",
               "target": "serde"
             },
             {
@@ -2882,7 +2890,7 @@
           "selects": {}
         },
         "edition": "2018",
-        "version": "0.2.1"
+        "version": "0.2.3"
       },
       "license": "MIT OR Apache-2.0"
     },
@@ -3082,11 +3090,11 @@
               "target": "gloo_events"
             },
             {
-              "id": "gloo-utils 0.1.4",
+              "id": "gloo-utils 0.1.5",
               "target": "gloo_utils"
             },
             {
-              "id": "serde 1.0.143",
+              "id": "serde 1.0.144",
               "target": "serde"
             },
             {
@@ -3117,13 +3125,13 @@
       },
       "license": "MIT OR Apache-2.0"
     },
-    "gloo-net 0.2.3": {
+    "gloo-net 0.2.4": {
       "name": "gloo-net",
-      "version": "0.2.3",
+      "version": "0.2.4",
       "repository": {
         "Http": {
-          "url": "https://crates.io/api/v1/crates/gloo-net/0.2.3/download",
-          "sha256": "351e6f94c76579cc9f9323a15f209086fc7bd428bff4288723d3a417851757b2"
+          "url": "https://crates.io/api/v1/crates/gloo-net/0.2.4/download",
+          "sha256": "ec897194fb9ac576c708f63d35604bc58f2a262b8cec0fabfed26f3991255f21"
         }
       },
       "targets": [
@@ -3172,7 +3180,7 @@
               "target": "futures_sink"
             },
             {
-              "id": "gloo-utils 0.1.4",
+              "id": "gloo-utils 0.1.5",
               "target": "gloo_utils"
             },
             {
@@ -3184,11 +3192,11 @@
               "target": "pin_project"
             },
             {
-              "id": "serde 1.0.143",
+              "id": "serde 1.0.144",
               "target": "serde"
             },
             {
-              "id": "serde_json 1.0.83",
+              "id": "serde_json 1.0.85",
               "target": "serde_json"
             },
             {
@@ -3211,7 +3219,7 @@
           "selects": {}
         },
         "edition": "2018",
-        "version": "0.2.3"
+        "version": "0.2.4"
       },
       "license": "MIT OR Apache-2.0"
     },
@@ -3261,13 +3269,13 @@
       },
       "license": "MIT OR Apache-2.0"
     },
-    "gloo-storage 0.2.1": {
+    "gloo-storage 0.2.2": {
       "name": "gloo-storage",
-      "version": "0.2.1",
+      "version": "0.2.2",
       "repository": {
         "Http": {
-          "url": "https://crates.io/api/v1/crates/gloo-storage/0.2.1/download",
-          "sha256": "1caa4ba51c99de680dee3ad99c32ca45e9f13311be72079154d222c3f9a6b6f5"
+          "url": "https://crates.io/api/v1/crates/gloo-storage/0.2.2/download",
+          "sha256": "5d6ab60bf5dbfd6f0ed1f7843da31b41010515c745735c970e821945ca91e480"
         }
       },
       "targets": [
@@ -3292,7 +3300,7 @@
         "deps": {
           "common": [
             {
-              "id": "gloo-utils 0.1.4",
+              "id": "gloo-utils 0.1.5",
               "target": "gloo_utils"
             },
             {
@@ -3300,11 +3308,11 @@
               "target": "js_sys"
             },
             {
-              "id": "serde 1.0.143",
+              "id": "serde 1.0.144",
               "target": "serde"
             },
             {
-              "id": "serde_json 1.0.83",
+              "id": "serde_json 1.0.85",
               "target": "serde_json"
             },
             {
@@ -3323,7 +3331,7 @@
           "selects": {}
         },
         "edition": "2018",
-        "version": "0.2.1"
+        "version": "0.2.2"
       },
       "license": "MIT OR Apache-2.0"
     },
@@ -3387,13 +3395,13 @@
       },
       "license": "MIT/Apache-2.0"
     },
-    "gloo-utils 0.1.4": {
+    "gloo-utils 0.1.5": {
       "name": "gloo-utils",
-      "version": "0.1.4",
+      "version": "0.1.5",
       "repository": {
         "Http": {
-          "url": "https://crates.io/api/v1/crates/gloo-utils/0.1.4/download",
-          "sha256": "929c53c913bb7a88d75d9dc3e9705f963d8c2b9001510b25ddaf671b9fb7049d"
+          "url": "https://crates.io/api/v1/crates/gloo-utils/0.1.5/download",
+          "sha256": "40913a05c8297adca04392f707b1e73b12ba7b8eab7244a4961580b1fd34063c"
         }
       },
       "targets": [
@@ -3415,11 +3423,23 @@
         "compile_data_glob": [
           "**"
         ],
+        "crate_features": [
+          "default",
+          "serde"
+        ],
         "deps": {
           "common": [
             {
               "id": "js-sys 0.3.58",
               "target": "js_sys"
+            },
+            {
+              "id": "serde 1.0.144",
+              "target": "serde"
+            },
+            {
+              "id": "serde_json 1.0.85",
+              "target": "serde_json"
             },
             {
               "id": "wasm-bindgen 0.2.81",
@@ -3433,7 +3453,7 @@
           "selects": {}
         },
         "edition": "2018",
-        "version": "0.1.4"
+        "version": "0.1.5"
       },
       "license": "MIT/Apache-2.0"
     },
@@ -3479,11 +3499,11 @@
               "target": "bincode"
             },
             {
-              "id": "gloo-console 0.2.1",
+              "id": "gloo-console 0.2.3",
               "target": "gloo_console"
             },
             {
-              "id": "gloo-utils 0.1.4",
+              "id": "gloo-utils 0.1.5",
               "target": "gloo_utils"
             },
             {
@@ -3491,7 +3511,7 @@
               "target": "js_sys"
             },
             {
-              "id": "serde 1.0.143",
+              "id": "serde 1.0.144",
               "target": "serde"
             },
             {
@@ -5732,7 +5752,7 @@
               "target": "line_wrap"
             },
             {
-              "id": "serde 1.0.143",
+              "id": "serde 1.0.144",
               "target": "serde"
             },
             {
@@ -6609,13 +6629,13 @@
       },
       "license": "MIT/Apache-2.0"
     },
-    "serde 1.0.143": {
+    "serde 1.0.144": {
       "name": "serde",
-      "version": "1.0.143",
+      "version": "1.0.144",
       "repository": {
         "Http": {
-          "url": "https://crates.io/api/v1/crates/serde/1.0.143/download",
-          "sha256": "53e8e5d5b70924f74ff5c6d64d9a5acd91422117c60f48c4e07855238a254553"
+          "url": "https://crates.io/api/v1/crates/serde/1.0.144/download",
+          "sha256": "0f747710de3dcd43b88c9168773254e809d8ddbdf9653b84e2554ab219f17860"
         }
       },
       "targets": [
@@ -6658,7 +6678,7 @@
         "deps": {
           "common": [
             {
-              "id": "serde 1.0.143",
+              "id": "serde 1.0.144",
               "target": "build_script_build"
             }
           ],
@@ -6668,13 +6688,13 @@
         "proc_macro_deps": {
           "common": [
             {
-              "id": "serde_derive 1.0.143",
+              "id": "serde_derive 1.0.144",
               "target": "serde_derive"
             }
           ],
           "selects": {}
         },
-        "version": "1.0.143"
+        "version": "1.0.144"
       },
       "build_script_attrs": {
         "data_glob": [
@@ -6722,7 +6742,7 @@
               "target": "js_sys"
             },
             {
-              "id": "serde 1.0.143",
+              "id": "serde 1.0.144",
               "target": "serde"
             },
             {
@@ -6737,13 +6757,13 @@
       },
       "license": "MIT"
     },
-    "serde_derive 1.0.143": {
+    "serde_derive 1.0.144": {
       "name": "serde_derive",
-      "version": "1.0.143",
+      "version": "1.0.144",
       "repository": {
         "Http": {
-          "url": "https://crates.io/api/v1/crates/serde_derive/1.0.143/download",
-          "sha256": "d3d8e8de557aee63c26b85b947f5e59b690d0454c753f3adeb5cd7835ab88391"
+          "url": "https://crates.io/api/v1/crates/serde_derive/1.0.144/download",
+          "sha256": "94ed3a816fb1d101812f83e789f888322c34e291f894f19590dc310963e87a00"
         }
       },
       "targets": [
@@ -6791,7 +6811,7 @@
               "target": "quote"
             },
             {
-              "id": "serde_derive 1.0.143",
+              "id": "serde_derive 1.0.144",
               "target": "build_script_build"
             },
             {
@@ -6802,7 +6822,7 @@
           "selects": {}
         },
         "edition": "2015",
-        "version": "1.0.143"
+        "version": "1.0.144"
       },
       "build_script_attrs": {
         "data_glob": [
@@ -6811,13 +6831,13 @@
       },
       "license": "MIT OR Apache-2.0"
     },
-    "serde_json 1.0.83": {
+    "serde_json 1.0.85": {
       "name": "serde_json",
-      "version": "1.0.83",
+      "version": "1.0.85",
       "repository": {
         "Http": {
-          "url": "https://crates.io/api/v1/crates/serde_json/1.0.83/download",
-          "sha256": "38dd04e3c8279e75b31ef29dbdceebfe5ad89f4d0937213c53f7d49d01b3d5a7"
+          "url": "https://crates.io/api/v1/crates/serde_json/1.0.85/download",
+          "sha256": "e55a28e3aaef9d5ce0506d0a14dbba8054ddc7e499ef522dd8b26859ec9d4a44"
         }
       },
       "targets": [
@@ -6867,18 +6887,18 @@
               "target": "ryu"
             },
             {
-              "id": "serde 1.0.143",
+              "id": "serde 1.0.144",
               "target": "serde"
             },
             {
-              "id": "serde_json 1.0.83",
+              "id": "serde_json 1.0.85",
               "target": "build_script_build"
             }
           ],
           "selects": {}
         },
         "edition": "2018",
-        "version": "1.0.83"
+        "version": "1.0.85"
       },
       "build_script_attrs": {
         "data_glob": [
@@ -6930,7 +6950,7 @@
               "target": "ryu"
             },
             {
-              "id": "serde 1.0.143",
+              "id": "serde 1.0.144",
               "target": "serde"
             }
           ],
@@ -7687,11 +7707,11 @@
               "target": "regex_syntax"
             },
             {
-              "id": "serde 1.0.143",
+              "id": "serde 1.0.144",
               "target": "serde"
             },
             {
-              "id": "serde_json 1.0.83",
+              "id": "serde_json 1.0.85",
               "target": "serde_json"
             },
             {
@@ -7713,7 +7733,7 @@
         "proc_macro_deps": {
           "common": [
             {
-              "id": "serde_derive 1.0.143",
+              "id": "serde_derive 1.0.144",
               "target": "serde_derive"
             }
           ],
@@ -9142,11 +9162,11 @@
               "target": "cfg_if"
             },
             {
-              "id": "serde 1.0.143",
+              "id": "serde 1.0.144",
               "target": "serde"
             },
             {
-              "id": "serde_json 1.0.83",
+              "id": "serde_json 1.0.85",
               "target": "serde_json"
             },
             {
@@ -10403,7 +10423,7 @@
               "target": "gloo"
             },
             {
-              "id": "gloo-utils 0.1.4",
+              "id": "gloo-utils 0.1.5",
               "target": "gloo_utils"
             },
             {
@@ -10423,7 +10443,7 @@
               "target": "js_sys"
             },
             {
-              "id": "serde 1.0.143",
+              "id": "serde 1.0.144",
               "target": "serde"
             },
             {
@@ -10593,7 +10613,7 @@
               "target": "route_recognizer"
             },
             {
-              "id": "serde 1.0.143",
+              "id": "serde 1.0.144",
               "target": "serde"
             },
             {

@@ -1,6 +1,8 @@
 load("@crate_index//:defs.bzl", "aliases", "all_crate_deps")
 load("@rules_rust//wasm_bindgen:wasm_bindgen.bzl", "rust_wasm_bindgen")
 load("@rules_rust//rust:defs.bzl", "rust_binary", "rust_library", "rust_shared_library", "rust_test")
+load("@npm//@bazel/esbuild:index.bzl", "esbuild", "esbuild_config")
+load("@npm//@bazel/typescript:index.bzl", "ts_project")
 
 rust_binary(
     name = "app",
@@ -45,7 +47,11 @@ rust_wasm_bindgen(
 
 filegroup(
     name = "static_files",
-    srcs = glob(["static/**"]) + [":tailwind"],
+    srcs = glob(["static/**"]) + [
+        ":tailwind",
+        ":prismjs",
+        ":copybundletostatic",
+    ],
     visibility = ["//server:__subpackages__"],
 )
 
@@ -55,4 +61,40 @@ genrule(
     outs = ["static/tailwind.css"],
     cmd = "node bazel-out/host/bin/external/npm/node_modules/tailwindcss/lib/cli.js --output=$(OUTS)",
     tools = ["@npm//tailwindcss"],
+)
+
+genrule(
+    name = "prismjs",
+    outs = ["static/prism.js"],
+    cmd = "cp bazel-out/host/bin/external/npm/node_modules/prismjs/prism.js $(OUTS)",
+    tools = ["@npm//prismjs"],
+)
+
+ts_project(
+    name = "tsproject",
+    srcs = ["app.ts"],
+    deps = ["@npm//prismjs"],
+)
+
+genrule(
+    name = "copybundletostatic",
+    srcs = [":bundle"],
+    outs = ["static/bundle.js"],
+    cmd = "cp $(@D)/../bundle.js $(OUTS)",
+)
+
+esbuild(
+    name = "bundle",
+    config = ":esbuild_config",
+    entry_point = "app.ts",
+    deps = [":tsproject"],
+)
+
+esbuild_config(
+    name = "esbuild_config",
+    config_file = "esbuild.config.mjs",
+    deps = [
+        "@npm//esbuild",
+        "@npm//esbuild-plugin-prismjs",
+    ],
 )

@@ -9,6 +9,8 @@
     />
     <link href="/tailwind.css" rel="stylesheet" />
     <link href="/styles/main.css" rel="stylesheet" />
+    <link href="/styles/prism-vs.css" rel="stylesheet" />
+    <link href="/styles/prism-vs-dark-plus.css" rel="stylesheet" />
 
     <title>impl Future { }</title>
     <link rel="icon" href="/img/favicon.svg" />
@@ -24,6 +26,11 @@
       rel="stylesheet"
     />
 
+    <script>
+      window.Prism = window.Prism || {};
+      Prism.manual = true;
+    </script>
+    <script src="/bundle.js"></script>
     <script type="module">
       import init from "/app_wasm.js";
       init("/app_wasm_bg.wasm");
