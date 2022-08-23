@@ -36,9 +36,11 @@ pub fn HighlightCode(c: &super::ChildProps) -> Html {
         move |_| {
             console::log_1(&"highlighting...".to_string().into());
             let element = code_ref.cast::<Element>().unwrap();
-            console::log_1(&element.inner_html().into());
-            let code_html = prism::highlightElement(element.clone());
-            || {}
+            prism::highlightElement(element.clone());
+            let parent = element.parent_element().unwrap().parent_element().unwrap();
+            move || {
+                parent.remove();
+            }
         },
         c.children.clone(),
     );
@@ -135,6 +137,6 @@ mod prism {
         pub fn highlight(code: String, lang: Language) -> String;
 
         #[wasm_bindgen(js_namespace = Prism)]
-        pub fn highlightElement(element: web_sys::Element) -> Option<String>;
+        pub fn highlightElement(element: web_sys::Element);
     }
 }
