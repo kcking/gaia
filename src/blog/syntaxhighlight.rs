@@ -37,9 +37,12 @@ pub fn HighlightCode(c: &super::ChildProps) -> Html {
             console::log_1(&"highlighting...".to_string().into());
             let element = code_ref.cast::<Element>().unwrap();
             prism::highlightElement(element.clone());
-            let parent = element.parent_element().unwrap().parent_element().unwrap();
             move || {
-                parent.remove();
+                element
+                    .closest(".codecontainer")
+                    .ok()
+                    .flatten()
+                    .map(|e| e.remove());
             }
         },
         c.children.clone(),
@@ -47,7 +50,11 @@ pub fn HighlightCode(c: &super::ChildProps) -> Html {
 
     // try_highlight_code(&c.children).unwrap_or_default()
     html! {
-        {code_tag}
+        <div class="codecontainer">
+            <pre class="overflow-auto m-4 p-6 bg-gray-300/5 rounded">
+                {code_tag}
+            </pre>
+        </div>
     }
 }
 

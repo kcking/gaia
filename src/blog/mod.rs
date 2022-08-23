@@ -11,7 +11,7 @@ mdx_style!(
     h1: MyH1,
     h2: MyH2,
     blockquote: MyBlockquote,
-    pre: MyPre,
+    pre: HighlightCode,
     p: MyP,
     li: MyLi,
     ul: MyUl,
