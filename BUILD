@@ -106,3 +106,11 @@ genrule(
     cmd = "$$(echo \"$(locations @emsdk//:linker_files)\" | fmt -w 1 | grep wasm-opt) $$(echo \"$(locations :app_wasm)\" | fmt -w 1 | grep app_wasm_bg.wasm) -o $@ -Os",
     tools = ["@emsdk//:linker_files"],
 )
+
+genrule(
+    name = "app_wasm_opt_gz",
+    srcs = [":app_wasm_opt"],
+    outs = ["app_wasm_bg_opt.wasm.gz"],
+    # -k: don't delete input, -f: compress links
+    cmd = "gzip -f -k -9 $<",
+)
