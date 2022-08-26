@@ -103,6 +103,6 @@ genrule(
     name = "app_wasm_opt",
     srcs = ["app_wasm"],
     outs = ["app_wasm_bg_opt.wasm"],
-    cmd = "external/emscripten_bin_mac_arm64/bin/wasm-opt $$(ls $(locations :app_wasm) | grep app_wasm_bg.wasm) -o $@ -Os",
+    cmd = "$$(echo \"$(locations @emsdk//:linker_files)\" | fmt -w 1 | grep wasm-opt) $$(echo \"$(locations :app_wasm)\" | fmt -w 1 | grep app_wasm_bg.wasm) -o $@ -Os",
     tools = ["@emsdk//:linker_files"],
 )
