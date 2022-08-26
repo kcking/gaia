@@ -64,3 +64,19 @@ yarn_install(
 load("@build_bazel_rules_nodejs//toolchains/esbuild:esbuild_repositories.bzl", "esbuild_repositories")
 
 esbuild_repositories(npm_repository = "npm")
+
+# for wasm-opt
+http_archive(
+    name = "emsdk",
+    sha256 = "189149281f36ca8edfad2632aa7c3a028bb116b7dbb967c4dac2f6496f60702c",
+    strip_prefix = "emsdk-3.1.19/bazel",
+    url = "https://github.com/emscripten-core/emsdk/archive/refs/tags/3.1.19.tar.gz",
+)
+
+load("@emsdk//:deps.bzl", emsdk_deps = "deps")
+
+emsdk_deps()
+
+load("@emsdk//:emscripten_deps.bzl", emsdk_emscripten_deps = "emscripten_deps")
+
+emsdk_emscripten_deps(emscripten_version = "3.1.19")

@@ -98,3 +98,11 @@ esbuild_config(
         "@npm//esbuild-plugin-prismjs",
     ],
 )
+
+genrule(
+    name = "app_wasm_opt",
+    srcs = ["app_wasm"],
+    outs = ["app_wasm_bg_opt.wasm"],
+    cmd = "external/emscripten_bin_mac_arm64/bin/wasm-opt $$(ls $(locations :app_wasm) | grep app_wasm_bg.wasm) -o $@ -Os",
+    tools = ["@emsdk//:linker_files"],
+)
