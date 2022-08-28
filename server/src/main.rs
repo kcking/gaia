@@ -95,7 +95,7 @@ async fn main() -> Result<()> {
     );
     let route_service = get_service(route_service).layer(Extension(INDEX_HTML.to_string()));
 
-    let addr = "127.0.0.1:8080";
+    let addr = std::env::var("HTTP_LISTEN_ADDR").unwrap_or("127.0.0.1:8080".into());
     eprintln!("starting server on {}", addr);
     axum::Server::bind(&addr.parse()?)
         .serve(get_service(route_service).into_make_service())

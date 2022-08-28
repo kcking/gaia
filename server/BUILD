@@ -1,5 +1,10 @@
 load("@crate_index//:defs.bzl", "aliases", "all_crate_deps")
-load("@rules_rust//rust:defs.bzl", "rust_binary", "rust_library", "rust_test")
+load("@rules_rust//rust:defs.bzl", "rust_binary")
+load(
+    "@io_bazel_rules_docker//container:container.bzl",
+    "container_image",
+)
+load("@bazel_tools//tools/build_defs/pkg:pkg.bzl", "pkg_tar")
 
 rust_binary(
     name = "server",
@@ -50,3 +55,23 @@ platform(
     ],
 )
 
+pkg_tar(
+    name = "opt_tar",
+    srcs = [":opt"],
+    include_runfiles = True,
+    package_dir = "/app",
+    # keeps relative path consistent for static files in both dev and release
+    strip_prefix = "/server",
+)
+
+container_image(
+    name = "image",
+    # References container_pull from WORKSPACE (above)
+    base = "@cc_base//image",
+    cmd = ["/app/opt"],
+    env = {
+        "HTTP_LISTEN_ADDR": "0.0.0.0:8080",
+    },
+    tars = [":opt_tar"],
+    workdir = "/app",
+)
