@@ -24,15 +24,29 @@ lazy_static::lazy_static!(
     static ref INDEX_HTML: String = {
         String::from_utf8( std::fs::read("static/index.bzl.html").unwrap().try_into().unwrap()).unwrap()
     };
-    static ref APP_JS: Bytes = {
-        Bytes::from(std::fs::read("app_wasm.js").unwrap())
+    static ref APP_WASM_PATH: &'static str = {
+        option_env!("APP_WASM_PATH").unwrap_or("/app_wasm_bg.wasm")
     };
-    static ref APP_WASM_BG: Bytes = {
-        let app_wasm_file = option_env!("APP_WASM_FILE").unwrap_or("app_wasm_bg.wasm");
-        Bytes::from(std::fs::read(app_wasm_file).unwrap())
+    static ref APP_JS_PATH: &'static str = {
+        option_env!("APP_JS_PATH").unwrap_or("/app_wasm.js")
     };
 );
+
 static LOCAL_POOL: Lazy<LocalPoolHandle> = Lazy::new(|| LocalPoolHandle::new(num_cpus::get()));
+
+fn html_wasm_init_head() -> String {
+    format!(
+        r#"
+
+    <script type="module">
+      import init from "{js_path}";
+      init("{wasm_path}");
+    </script>
+"#,
+        js_path = *APP_JS_PATH,
+        wasm_path = *APP_WASM_PATH,
+    )
+}
 
 async fn index(
     Extension(index_html_s): Extension<String>,
@@ -53,46 +67,19 @@ async fn index(
         })
         .await
         .unwrap();
-    Html(index_html_s.replace("<body>", &format!("<body>{}", out)))
-}
-
-fn debug_dirs() -> Result<()> {
-    for d in std::fs::read_dir(".")? {
-        eprintln!("{:?}", d?.file_name());
-    }
-
-    Ok(())
-}
-
-async fn serve_app_js() -> impl IntoResponse {
-    (
-        HeaderMap::from_iter(
-            [(
-                HeaderName::from_static("content-type"),
-                HeaderValue::from_static("text/javascript"),
-            )]
-            .into_iter(),
-        ),
-        APP_JS.clone(),
-    )
-}
-
-async fn serve_app_wasm() -> impl IntoResponse {
-    (
-        HeaderMap::from_iter(
-            [(
-                HeaderName::from_static("content-type"),
-                HeaderValue::from_static("application/wasm"),
-            )]
-            .into_iter(),
-        ),
-        APP_WASM_BG.clone(),
-    )
+    let html = index_html_s
+        .replace("<body>", &format!("<body>{}", out))
+        .replace("</head>", &format!("{}</head>", html_wasm_init_head()));
+    Html(html)
 }
 
 #[tokio::main]
 async fn main() -> Result<()> {
-    let app_wasm_serve = get_service(ServeDir::new(".")).handle_error(|e| async move {
+    let mut app_wasm_serve = ServeDir::new(".");
+    if option_env!("AXUM_PRECOMPRESSED_WASM").is_some() {
+        app_wasm_serve = app_wasm_serve.precompressed_gzip();
+    }
+    let app_wasm_serve = get_service(app_wasm_serve).handle_error(|e| async move {
         dbg!(e);
         StatusCode::BAD_REQUEST
     });
@@ -102,8 +89,8 @@ async fn main() -> Result<()> {
     });
     let route_service = RoutableService::<gaia::Route, _, _>::new(
         get(index),
-        route("/app_wasm.js", app_wasm_serve.clone())
-            .route("/app_wasm_bg.wasm", app_wasm_serve)
+        route(*APP_JS_PATH, app_wasm_serve.clone())
+            .route(*APP_WASM_PATH, app_wasm_serve)
             .fallback(static_serve),
     );
     let route_service = get_service(route_service).layer(Extension(INDEX_HTML.to_string()));

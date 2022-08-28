@@ -7,7 +7,6 @@ rust_binary(
     aliases = aliases(),
     data = [
         "//:app_wasm",
-        "//:index.html-dev",
         "//:static_files",
     ],
     edition = "2021",
@@ -24,9 +23,9 @@ rust_binary(
     srcs = glob(["src/**/*.rs"]),
     aliases = aliases(),
     data = [
+        "//:app_wasm",
         "//:app_wasm_opt",
         "//:app_wasm_opt_gz",
-        "//:index.html-release",
         "//:static_files",
     ],
     edition = "2021",
@@ -34,7 +33,8 @@ rust_binary(
         proc_macro = True,
     ),
     rustc_env = {
-        "APP_WASM_FILE": "/app_wasm_bg_opt.wasm",
+        "APP_WASM_PATH": "/app_wasm_bg_opt.wasm",
+        "AXUM_PRECOMPRESSED_WASM": "1",
     },
     deps = all_crate_deps(
         normal = True,
