@@ -24,6 +24,7 @@ rust_binary(
     aliases = aliases(),
     data = [
         "//:app_wasm",
+        # wasm-opt takes ~3s to run, only use in release build
         "//:app_wasm_opt",
         "//:app_wasm_opt_gz",
         "//:static_files",
