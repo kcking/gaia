@@ -14,20 +14,9 @@ local_repository(
     path = "../../dev/rules_rust",
 )
 
-load("@rules_rust//rust:repositories.bzl", "rules_rust_dependencies", "rust_register_toolchains", "rust_repository_set", "rust_toolchain_repository")
+load("@rules_rust//rust:repositories.bzl", "rules_rust_dependencies", "rust_register_toolchains")
 
 rules_rust_dependencies()
-
-# rust_repository_set(
-#     name = "rust_macos_arm64_linux_tuple",
-#     edition = "2021",
-#     exec_triple = "aarch64-apple-darwin",
-#     extra_target_triples = [
-#         "x86_64-unknown-linux-gnu",
-#         "wasm32-unknown-unknown",
-#     ],
-#     version = "1.62.1",
-# )
 
 rust_register_toolchains(extra_target_triples = [
     "wasm32-unknown-unknown",
