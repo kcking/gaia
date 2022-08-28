@@ -48,10 +48,18 @@ rust_binary(
 )
 
 platform(
-    name = "linux_x86",
+    name = "linux_amd64",
     constraint_values = [
         "@platforms//os:linux",
         "@platforms//cpu:x86_64",
+    ],
+)
+
+platform(
+    name = "linux_arm64",
+    constraint_values = [
+        "@platforms//os:linux",
+        "@platforms//cpu:arm64",
     ],
 )
 
@@ -65,7 +73,21 @@ pkg_tar(
 )
 
 container_image(
-    name = "image",
+    name = "image-arm64",
+    architecture = "arm64",
+    # References container_pull from WORKSPACE (above)
+    base = "@cc_base//image",
+    cmd = ["/app/opt"],
+    env = {
+        "HTTP_LISTEN_ADDR": "0.0.0.0:8080",
+    },
+    tars = [":opt_tar"],
+    workdir = "/app",
+)
+
+container_image(
+    name = "image-amd64",
+    architecture = "amd64",
     # References container_pull from WORKSPACE (above)
     base = "@cc_base//image",
     cmd = ["/app/opt"],

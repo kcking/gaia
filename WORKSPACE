@@ -21,6 +21,7 @@ rules_rust_dependencies()
 rust_register_toolchains(extra_target_triples = [
     "wasm32-unknown-unknown",
     "x86_64-unknown-linux-gnu",
+    "aarch64-unknown-linux-gnu",
 ])
 
 load("@rules_rust//crate_universe:repositories.bzl", "crate_universe_dependencies")
@@ -161,7 +162,16 @@ load(
 
 container_pull(
     name = "cc_base",
+    # architecture = "arm64",
+    # digest = "sha256:85e93527f62963332bf6ca0157d8ebd09ef72e34eff087b6f5ea05020da1dbdc",
     registry = "gcr.io",
     # rust is c-like https://github.com/GoogleContainerTools/distroless/tree/main/cc
+    repository = "distroless/cc",
+)
+
+container_pull(
+    name = "cc_base_amd64",
+    architecture = "amd64",
+    registry = "gcr.io",
     repository = "distroless/cc",
 )
