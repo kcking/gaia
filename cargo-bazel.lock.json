@@ -1,5 +1,5 @@
 {
-  "checksum": "a83aa93477702a54f282c06dec72badb6682ea6427522ef79a7d09b2b265d087",
+  "checksum": "c7e4fde16ff389f4b0db20d934dcacdcb06ee05741ffab641afc0e54e5165181",
   "crates": {
     "adler 1.0.2": {
       "name": "adler",
@@ -802,13 +802,13 @@
       },
       "license": "MIT/Apache-2.0"
     },
-    "base64ct 1.5.1": {
+    "base64ct 1.5.2": {
       "name": "base64ct",
-      "version": "1.5.1",
+      "version": "1.5.2",
       "repository": {
         "Http": {
-          "url": "https://crates.io/api/v1/crates/base64ct/1.5.1/download",
-          "sha256": "3bdca834647821e0b13d9539a8634eb62d3501b6b6c2cec1722786ee6671b851"
+          "url": "https://crates.io/api/v1/crates/base64ct/1.5.2/download",
+          "sha256": "ea2b2456fd614d856680dcd9fcc660a51a820fa09daef2e49772b56a193c8474"
         }
       },
       "targets": [
@@ -835,7 +835,7 @@
           "std"
         ],
         "edition": "2021",
-        "version": "1.5.1"
+        "version": "1.5.2"
       },
       "license": "Apache-2.0 OR MIT"
     },
@@ -2626,7 +2626,7 @@
               "target": "syntect"
             },
             {
-              "id": "time 0.3.13",
+              "id": "time 0.3.14",
               "target": "time"
             },
             {
@@ -4050,7 +4050,7 @@
               "target": "pin_project_lite"
             },
             {
-              "id": "socket2 0.4.4",
+              "id": "socket2 0.4.6",
               "target": "socket2"
             },
             {
@@ -5159,6 +5159,34 @@
       },
       "license": "MIT"
     },
+    "native-test 0.1.0": {
+      "name": "native-test",
+      "version": "0.1.0",
+      "repository": null,
+      "targets": [
+        {
+          "Binary": {
+            "crate_name": "native-test",
+            "crate_root": "src/main.rs",
+            "srcs": {
+              "include": [
+                "**/*.rs"
+              ],
+              "exclude": []
+            }
+          }
+        }
+      ],
+      "library_target_name": null,
+      "common_attrs": {
+        "compile_data_glob": [
+          "**"
+        ],
+        "edition": "2021",
+        "version": "0.1.0"
+      },
+      "license": null
+    },
     "nom 7.1.1": {
       "name": "nom",
       "version": "7.1.1",
@@ -5756,7 +5784,7 @@
               "target": "serde"
             },
             {
-              "id": "time 0.3.13",
+              "id": "time 0.3.14",
               "target": "time"
             },
             {
@@ -7201,13 +7229,13 @@
       },
       "license": "MIT OR Apache-2.0"
     },
-    "socket2 0.4.4": {
+    "socket2 0.4.6": {
       "name": "socket2",
-      "version": "0.4.4",
+      "version": "0.4.6",
       "repository": {
         "Http": {
-          "url": "https://crates.io/api/v1/crates/socket2/0.4.4/download",
-          "sha256": "66d72b759436ae32898a2af0a14218dbf55efde3feeb170eb623637db85ee1e0"
+          "url": "https://crates.io/api/v1/crates/socket2/0.4.6/download",
+          "sha256": "10c98bba371b9b22a71a9414e420f92ddeb2369239af08200816169d5e2dd7aa"
         }
       },
       "targets": [
@@ -7250,7 +7278,7 @@
           }
         },
         "edition": "2018",
-        "version": "0.4.4"
+        "version": "0.4.6"
       },
       "license": "MIT OR Apache-2.0"
     },
@@ -7912,13 +7940,13 @@
       },
       "license": "MIT OR Apache-2.0"
     },
-    "time 0.3.13": {
+    "time 0.3.14": {
       "name": "time",
-      "version": "0.3.13",
+      "version": "0.3.14",
       "repository": {
         "Http": {
-          "url": "https://crates.io/api/v1/crates/time/0.3.13/download",
-          "sha256": "db76ff9fa4b1458b3c7f077f3ff9887394058460d21e634355b273aaf11eea45"
+          "url": "https://crates.io/api/v1/crates/time/0.3.14/download",
+          "sha256": "3c3f9a28b618c3a6b9251b6908e9c99e04b9e5c02e6581ccbb67d59c34ef7f9b"
         }
       },
       "targets": [
@@ -7980,7 +8008,7 @@
           ],
           "selects": {}
         },
-        "version": "0.3.13"
+        "version": "0.3.14"
       },
       "license": "MIT OR Apache-2.0"
     },
@@ -8181,7 +8209,7 @@
               "target": "pin_project_lite"
             },
             {
-              "id": "socket2 0.4.4",
+              "id": "socket2 0.4.6",
               "target": "socket2"
             },
             {
@@ -10403,7 +10431,7 @@
         "deps": {
           "common": [
             {
-              "id": "base64ct 1.5.1",
+              "id": "base64ct 1.5.2",
               "target": "base64ct"
             },
             {
@@ -10710,6 +10738,7 @@
   ],
   "workspace_members": {
     "gaia 0.1.0": "",
+    "native-test 0.1.0": "native-test",
     "server 0.1.0": "server"
   },
   "conditions": {

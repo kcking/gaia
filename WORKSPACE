@@ -1,19 +1,38 @@
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
-http_archive(
+# http_archive(
+#     name = "rules_rust",
+#     sha256 = "6bfe75125e74155955d8a9854a8811365e6c0f3d33ed700bc17f39e32522c822",
+#     urls = [
+#         "https://mirror.bazel.build/github.com/bazelbuild/rules_rust/releases/download/0.9.0/rules_rust-v0.9.0.tar.gz",
+#         "https://github.com/bazelbuild/rules_rust/releases/download/0.9.0/rules_rust-v0.9.0.tar.gz",
+#     ],
+# )
+
+local_repository(
     name = "rules_rust",
-    sha256 = "6bfe75125e74155955d8a9854a8811365e6c0f3d33ed700bc17f39e32522c822",
-    urls = [
-        "https://mirror.bazel.build/github.com/bazelbuild/rules_rust/releases/download/0.9.0/rules_rust-v0.9.0.tar.gz",
-        "https://github.com/bazelbuild/rules_rust/releases/download/0.9.0/rules_rust-v0.9.0.tar.gz",
-    ],
+    path = "../../dev/rules_rust",
 )
 
-load("@rules_rust//rust:repositories.bzl", "rules_rust_dependencies", "rust_register_toolchains")
+load("@rules_rust//rust:repositories.bzl", "rules_rust_dependencies", "rust_register_toolchains", "rust_repository_set", "rust_toolchain_repository")
 
 rules_rust_dependencies()
 
-rust_register_toolchains()
+# rust_repository_set(
+#     name = "rust_macos_arm64_linux_tuple",
+#     edition = "2021",
+#     exec_triple = "aarch64-apple-darwin",
+#     extra_target_triples = [
+#         "x86_64-unknown-linux-gnu",
+#         "wasm32-unknown-unknown",
+#     ],
+#     version = "1.62.1",
+# )
+
+rust_register_toolchains(extra_target_triples = [
+    "wasm32-unknown-unknown",
+    "x86_64-unknown-linux-gnu",
+])
 
 load("@rules_rust//crate_universe:repositories.bzl", "crate_universe_dependencies")
 
@@ -28,6 +47,7 @@ crates_repository(
     manifests = [
         "//:Cargo.toml",
         "//server:Cargo.toml",
+        "//native-test:Cargo.toml",
     ],
     splicing_config = splicing_config(resolver_version = "2"),
 )
@@ -80,3 +100,26 @@ emsdk_deps()
 load("@emsdk//:emscripten_deps.bzl", emsdk_emscripten_deps = "emscripten_deps")
 
 emsdk_emscripten_deps(emscripten_version = "3.1.19")
+
+# zigcc
+BAZEL_ZIG_CC_VERSION = "v0.9.1"
+
+http_archive(
+    name = "bazel-zig-cc",
+    sha256 = "ab596041c0217a66ed8e6af49955c5d427b1f3e5b5603713696b3444810608f0",
+    strip_prefix = "bazel-zig-cc-{}".format(BAZEL_ZIG_CC_VERSION),
+    urls = ["https://git.sr.ht/~motiejus/bazel-zig-cc/archive/{}.tar.gz".format(BAZEL_ZIG_CC_VERSION)],
+)
+
+load("@bazel-zig-cc//toolchain:defs.bzl", zig_toolchains = "toolchains")
+
+zig_toolchains()
+
+register_toolchains(
+    "@zig_sdk//toolchain:linux_amd64_gnu.2.19",
+    "@zig_sdk//toolchain:linux_arm64_gnu.2.28",
+    "@zig_sdk//toolchain:darwin_amd64",
+    "@zig_sdk//toolchain:darwin_arm64",
+    "@zig_sdk//toolchain:windows_amd64",
+    "@zig_sdk//toolchain:windows_arm64",
+)

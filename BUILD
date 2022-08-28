@@ -50,7 +50,6 @@ filegroup(
     name = "static_files",
     srcs = glob(["static/**"]) + [
         ":tailwind",
-        ":prismjs",
         ":copybundletostatic",
     ],
 )
@@ -61,13 +60,6 @@ genrule(
     outs = ["static/tailwind.css"],
     cmd = "node bazel-out/host/bin/external/npm/node_modules/tailwindcss/lib/cli.js --output=$(OUTS)",
     tools = ["@npm//tailwindcss"],
-)
-
-genrule(
-    name = "prismjs",
-    outs = ["static/prism.js"],
-    cmd = "cp bazel-out/host/bin/external/npm/node_modules/prismjs/prism.js $(OUTS)",
-    tools = ["@npm//prismjs"],
 )
 
 ts_project(

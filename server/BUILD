@@ -41,3 +41,12 @@ rust_binary(
         normal = True,
     ) + ["//:gaia"],
 )
+
+platform(
+    name = "linux_x86",
+    constraint_values = [
+        "@platforms//os:linux",
+        "@platforms//cpu:x86_64",
+    ],
+)
+
