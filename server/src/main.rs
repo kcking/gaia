@@ -28,7 +28,8 @@ lazy_static::lazy_static!(
         Bytes::from(std::fs::read("app_wasm.js").unwrap())
     };
     static ref APP_WASM_BG: Bytes = {
-        Bytes::from(std::fs::read("app_wasm_bg.wasm").unwrap())
+        let app_wasm_file = option_env!("APP_WASM_FILE").unwrap_or("app_wasm_bg.wasm");
+        Bytes::from(std::fs::read(app_wasm_file).unwrap())
     };
 );
 static LOCAL_POOL: Lazy<LocalPoolHandle> = Lazy::new(|| LocalPoolHandle::new(num_cpus::get()));
@@ -91,16 +92,19 @@ async fn serve_app_wasm() -> impl IntoResponse {
 
 #[tokio::main]
 async fn main() -> Result<()> {
+    let app_wasm_serve = get_service(ServeDir::new(".")).handle_error(|e| async move {
+        dbg!(e);
+        StatusCode::BAD_REQUEST
+    });
+    let static_serve = get_service(ServeDir::new("static")).handle_error(|e| async move {
+        dbg!(e);
+        StatusCode::BAD_REQUEST
+    });
     let route_service = RoutableService::<gaia::Route, _, _>::new(
         get(index),
-        route("/app_wasm.js", get(serve_app_js))
-            .route("/app_wasm_bg.wasm", get(serve_app_wasm))
-            .fallback(
-                get_service(ServeDir::new("static")).handle_error(|e| async move {
-                    dbg!(e);
-                    StatusCode::BAD_REQUEST
-                }),
-            ),
+        route("/app_wasm.js", app_wasm_serve.clone())
+            .route("/app_wasm_bg.wasm", app_wasm_serve)
+            .fallback(static_serve),
     );
     let route_service = get_service(route_service).layer(Extension(INDEX_HTML.to_string()));
 
