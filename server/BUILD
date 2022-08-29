@@ -97,3 +97,13 @@ container_image(
     tars = [":opt_tar"],
     workdir = "/app",
 )
+
+container_push(
+    name = "push-amd64",
+    format = "Docker",
+    image = ":image-amd64",
+    project = "implfuture",
+    registry = "gcr.io",
+    repository = "implfuture/server",
+    tag = "latest",
+)
