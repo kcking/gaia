@@ -3,6 +3,7 @@ load("@rules_rust//rust:defs.bzl", "rust_binary")
 load(
     "@io_bazel_rules_docker//container:container.bzl",
     "container_image",
+    "container_push",
 )
 load("@bazel_tools//tools/build_defs/pkg:pkg.bzl", "pkg_tar")
 
@@ -102,8 +103,7 @@ container_push(
     name = "push-amd64",
     format = "Docker",
     image = ":image-amd64",
-    project = "implfuture",
-    registry = "gcr.io",
-    repository = "implfuture/server",
+    registry = "us-west1-docker.pkg.dev",
+    repository = "implfuture/implfuture/server",
     tag = "latest",
 )
