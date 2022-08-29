@@ -99,6 +99,7 @@ genrule(
     tools = ["@emsdk//:linker_files"],
 )
 
+# TODO: use included pkg_tar rule to compress this
 genrule(
     name = "app_wasm_opt_gz",
     srcs = [":app_wasm_opt"],
