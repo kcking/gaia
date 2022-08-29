@@ -82,7 +82,7 @@ fn Home() -> Html {
 
 fn switch(route: Route) -> Html {
     html! {
-        <main class="font-body flex items-center px-8">
+        <main class="font-body flex items-center px-2">
             <Navbar />
             {
                 match route {

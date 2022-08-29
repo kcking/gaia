@@ -461,7 +461,7 @@ pub fn render(slug: &str) -> Html {
         .map(|(meta, post)| post(meta))
         .unwrap_or(mdx! {r#"Post not found :("#});
     html! {
-      <div class="max-w-4xl p-2">
+      <div class="w-full md:max-w-4xl p-2">
         {post_content}
       </div>
     }
