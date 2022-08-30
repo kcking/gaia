@@ -133,9 +133,16 @@ fn Counter() -> Html {
     let s = count.to_string();
 
     html! {
-        <button onclick={ move |_| count.set(*count + 1)}>
+        <button onclick={ move |_| count.set(*count + 1)} class="bg-gray-300/30 rounded select-none p-2">
         {"Counter "}{s}
         </button>
+    }
+}
+
+#[function_component]
+fn RustString() -> Html {
+    html! {
+      <span class="text-orange-600">{"rust 🦀"}</span>
     }
 }
 
@@ -152,11 +159,11 @@ What was I looking for in a blog? Three things. It should be easy to:
 
 - draft blog posts in a familiar language (markdown)
 - put everything into version control (git)
-- most importantly, incorporate {<em title="This string came from rust -> wasm!" className="text-orange-600">{rust_string()}</em>}
+- most importantly, incorporate <em title="This string came from rust -> wasm!"><RustString /></em>
   components for interactive demos
 
 Yes, that orange crab string actually comes from rust compiled to WebAssembly!
-As another example, here's a {<Counter />} backed by Rust that increments every
+As another example, here's a <Counter /> backed by Rust that increments every
 time you click it.
 
 This setup will help illustrate the concepts I'll be covering in future posts,
