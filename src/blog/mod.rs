@@ -1,5 +1,6 @@
 mod post1;
 mod syntaxhighlight;
+mod post2;
 
 use log::info;
 use time::macros::date;
