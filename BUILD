@@ -56,16 +56,17 @@ genrule(
     name = "tailwind",
     srcs = glob(["src/**/*.rs"]) + ["tailwind.config.js"],
     outs = ["static/tailwind.css"],
-    cmd = "node bazel-out/host/bin/external/npm/node_modules/tailwindcss/lib/cli.js --output=$(OUTS)",
-    cmd_bat = "node bazel-out/host/bin/external/npm/node_modules/tailwindcss/lib/cli.js --output=$(OUTS)",
+    cmd = "node bazel-out/host/bin/external/root_npm/node_modules/tailwindcss/lib/cli.js --output=$(OUTS)",
+    cmd_bat = "node bazel-out/host/bin/external/root_npm/node_modules/tailwindcss/lib/cli.js --output=$(OUTS)",
     tools = ["@root_npm//tailwindcss"],
+    visibility = ["//:__pkg__"],
 )
 
 genrule(
     name = "copybundletostatic",
     srcs = ["//bundle"],
     outs = ["static/bundle.js"],
-    cmd = "cp $(@D)/../bundle.js $(OUTS)",
+    cmd = "cp $(@D)/../bundle/bundle.js $(OUTS)",
     cmd_bat = "copy \"$(@D)\\..\\bundle\\bundle.js\" $(OUTS)",
 )
 
@@ -84,7 +85,6 @@ genrule(
     tools = ["@emsdk//:linker_files"],
 )
 
-# TODO: use included pkg_tar rule to compress this or rules_brotli
 genrule(
     name = "app_wasm_opt_br",
     srcs = [":app_wasm_opt"],

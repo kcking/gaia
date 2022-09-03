@@ -49,11 +49,16 @@ load("@rules_rust//wasm_bindgen:repositories.bzl", "rust_wasm_bindgen_repositori
 
 rust_wasm_bindgen_repositories()
 
-# for tailwind
-http_archive(
+# for tailwind / esbuild bundling
+# http_archive(
+#     name = "build_bazel_rules_nodejs",
+#     sha256 = "f10a3a12894fc3c9bf578ee5a5691769f6805c4be84359681a785a0c12e8d2b6",
+#     urls = ["https://github.com/bazelbuild/rules_nodejs/releases/download/5.5.3/rules_nodejs-5.5.3.tar.gz"],
+# )
+
+local_repository(
     name = "build_bazel_rules_nodejs",
-    sha256 = "f10a3a12894fc3c9bf578ee5a5691769f6805c4be84359681a785a0c12e8d2b6",
-    urls = ["https://github.com/bazelbuild/rules_nodejs/releases/download/5.5.3/rules_nodejs-5.5.3.tar.gz"],
+    path = "../../dev/rules_nodejs",
 )
 
 load("@build_bazel_rules_nodejs//:repositories.bzl", "build_bazel_rules_nodejs_dependencies")
@@ -65,20 +70,20 @@ load("@build_bazel_rules_nodejs//:index.bzl", "node_repositories", "yarn_install
 node_repositories()
 
 yarn_install(
-    name = "root_npm",
-    package_json = "//:package.json",
-    yarn_lock = "//:yarn.lock",
-)
-
-yarn_install(
     name = "app_npm",
     package_json = "//bundle:package.json",
     yarn_lock = "//bundle:yarn.lock",
 )
 
+yarn_install(
+    name = "root_npm",
+    package_json = "//:package.json",
+    yarn_lock = "//:yarn.lock",
+)
+
 load("@build_bazel_rules_nodejs//toolchains/esbuild:esbuild_repositories.bzl", "esbuild_repositories")
 
-esbuild_repositories(npm_repository = "app_npm")
+esbuild_repositories(npm_repository = "root_npm")
 
 # for wasm-opt
 http_archive(
@@ -105,15 +110,15 @@ BAZEL_ZIG_CC_VERSION = "v0.9.1"
 #     strip_prefix = "bazel-zig-cc-{}".format(BAZEL_ZIG_CC_VERSION),
 #     urls = ["https://git.sr.ht/~motiejus/bazel-zig-cc/archive/{}.tar.gz".format(BAZEL_ZIG_CC_VERSION)],
 # )
-local_repository(
-    name = "bazel-zig-cc",
-    path = "../dev/bazel-zig-cc",
-)
-# git_repository(
+# local_repository(
 #     name = "bazel-zig-cc",
-#     commit = "79674a1d966b5c196a6f729ac7423223dc05cf83",
-#     remote = "https://git.sr.ht/~motiejus/bazel-zig-cc",
+#     path = "../dev/bazel-zig-cc",
 # )
+git_repository(
+    name = "bazel-zig-cc",
+    commit = "2f0ae4affa5ddc64a4fa701e2b6d3261e5058353",
+    remote = "https://git.sr.ht/~motiejus/bazel-zig-cc",
+)
 
 load("@bazel-zig-cc//toolchain:defs.bzl", zig_toolchains = "toolchains")
 
