@@ -65,14 +65,20 @@ load("@build_bazel_rules_nodejs//:index.bzl", "node_repositories", "yarn_install
 node_repositories()
 
 yarn_install(
-    name = "npm",
+    name = "root_npm",
     package_json = "//:package.json",
     yarn_lock = "//:yarn.lock",
 )
 
+yarn_install(
+    name = "app_npm",
+    package_json = "//bundle:package.json",
+    yarn_lock = "//bundle:yarn.lock",
+)
+
 load("@build_bazel_rules_nodejs//toolchains/esbuild:esbuild_repositories.bzl", "esbuild_repositories")
 
-esbuild_repositories(npm_repository = "npm")
+esbuild_repositories(npm_repository = "app_npm")
 
 # for wasm-opt
 http_archive(
