@@ -1,6 +1,6 @@
 mod post1;
-mod syntaxhighlight;
 mod post2;
+mod syntaxhighlight;
 
 use log::info;
 use time::macros::date;
@@ -9,15 +9,20 @@ use yew_router::prelude::Link;
 
 use crate::{blog::syntaxhighlight::HighlightCode, Route};
 
-mdx_style!(
-    h1: MyH1,
-    h2: MyH2,
-    blockquote: MyBlockquote,
-    pre: HighlightCode,
-    p: MyP,
-    li: MyLi,
-    ul: MyUl,
-);
+macro_rules! blog_style {
+    () => {
+        mdx_style!(
+            h1: MyH1,
+            h2: MyH2,
+            blockquote: MyBlockquote,
+            pre: HighlightCode,
+            p: MyP,
+            li: MyLi,
+            ul: MyUl,
+        );
+    };
+}
+pub(crate) use blog_style;
 
 #[derive(PartialEq, Properties)]
 pub struct ChildProps {
