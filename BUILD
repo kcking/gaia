@@ -106,7 +106,7 @@ genrule(
     tools = ["@emsdk//:linker_files"],
 )
 
-# TODO: use included pkg_tar rule to compress this
+# TODO: use included pkg_tar rule to compress this or rules_brotli
 genrule(
     name = "app_wasm_opt_gz",
     srcs = [":app_wasm_opt"],
