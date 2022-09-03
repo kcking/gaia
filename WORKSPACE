@@ -36,7 +36,6 @@ crates_repository(
     manifests = [
         "//:Cargo.toml",
         "//server:Cargo.toml",
-        "//native-test:Cargo.toml",
     ],
     splicing_config = splicing_config(resolver_version = "2"),
 )
@@ -83,6 +82,7 @@ yarn_install(
 
 load("@build_bazel_rules_nodejs//toolchains/esbuild:esbuild_repositories.bzl", "esbuild_repositories")
 
+# based on my testing esbuild only works in root npm repository
 esbuild_repositories(npm_repository = "root_npm")
 
 # for wasm-opt
