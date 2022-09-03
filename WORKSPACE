@@ -4,6 +4,7 @@ RULES_RUST_VERSION = "0.10.0"
 
 http_archive(
     name = "rules_rust",
+    sha256 = "0cc7e6b39e492710b819e00d48f2210ae626b717a3ab96e048c43ab57e61d204",
     urls = [
         "https://mirror.bazel.build/github.com/bazelbuild/rules_rust/releases/download/{RULES_RUST_VERSION}/rules_rust-v{RULES_RUST_VERSION}.tar.gz".format(RULES_RUST_VERSION = RULES_RUST_VERSION),
         "https://github.com/bazelbuild/rules_rust/releases/download/{RULES_RUST_VERSION}/rules_rust-v{RULES_RUST_VERSION}.tar.gz".format(RULES_RUST_VERSION = RULES_RUST_VERSION),
@@ -29,6 +30,7 @@ load("@rules_rust//crate_universe:defs.bzl", "crates_repository", "splicing_conf
 crates_repository(
     name = "crate_index",
     cargo_lockfile = "//:Cargo.lock",
+    generator_sha256s = {"aarch64-apple-darwin": "77e55540c26bf180b3f6bb5523f24aeef02d4c1b4525426cf13c547aa9698c75"},
     lockfile = "//:cargo-bazel.lock.json",
     manifests = [
         "//:Cargo.toml",
