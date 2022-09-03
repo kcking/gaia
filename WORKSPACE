@@ -1,4 +1,5 @@
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 
 RULES_RUST_VERSION = "0.10.0"
 
@@ -100,8 +101,13 @@ BAZEL_ZIG_CC_VERSION = "v0.9.1"
 # )
 local_repository(
     name = "bazel-zig-cc",
-    path = "../../dev/bazel-zig-cc",
+    path = "../dev/bazel-zig-cc",
 )
+# git_repository(
+#     name = "bazel-zig-cc",
+#     commit = "79674a1d966b5c196a6f729ac7423223dc05cf83",
+#     remote = "https://git.sr.ht/~motiejus/bazel-zig-cc",
+# )
 
 load("@bazel-zig-cc//toolchain:defs.bzl", zig_toolchains = "toolchains")
 
@@ -115,7 +121,7 @@ register_toolchains(
     # don't register them so we just use local toolchain when on a mac
     # "@zig_sdk//toolchain:darwin_amd64",
     # "@zig_sdk//toolchain:darwin_arm64",
-    "@zig_sdk//toolchain:windows_amd64",
+    # "@zig_sdk//toolchain:windows_amd64",
     "@zig_sdk//toolchain:windows_arm64",
 )
 

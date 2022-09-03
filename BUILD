@@ -59,12 +59,16 @@ genrule(
     srcs = glob(["src/**/*.rs"]) + ["tailwind.config.js"],
     outs = ["static/tailwind.css"],
     cmd = "node bazel-out/host/bin/external/npm/node_modules/tailwindcss/lib/cli.js --output=$(OUTS)",
+    cmd_bat = "node bazel-out/host/bin/external/npm/node_modules/tailwindcss/lib/cli.js --output=$(OUTS)",
     tools = ["@npm//tailwindcss"],
 )
 
 ts_project(
     name = "tsproject",
-    srcs = ["app.ts"],
+    srcs = [
+        "app.ts",
+        "tsconfig.json",
+    ],
     deps = ["@npm//prismjs"],
 )
 
@@ -73,6 +77,7 @@ genrule(
     srcs = [":bundle"],
     outs = ["static/bundle.js"],
     cmd = "cp $(@D)/../bundle.js $(OUTS)",
+    cmd_bat = "xcopy $(@D)\\..\\bundle.js $(OUTS)",
 )
 
 esbuild(
