@@ -50,16 +50,16 @@ load("@rules_rust//wasm_bindgen:repositories.bzl", "rust_wasm_bindgen_repositori
 rust_wasm_bindgen_repositories()
 
 # for tailwind / esbuild bundling
-# http_archive(
-#     name = "build_bazel_rules_nodejs",
-#     sha256 = "f10a3a12894fc3c9bf578ee5a5691769f6805c4be84359681a785a0c12e8d2b6",
-#     urls = ["https://github.com/bazelbuild/rules_nodejs/releases/download/5.5.3/rules_nodejs-5.5.3.tar.gz"],
-# )
-
-local_repository(
+http_archive(
     name = "build_bazel_rules_nodejs",
-    path = "../../dev/rules_nodejs",
+    sha256 = "f10a3a12894fc3c9bf578ee5a5691769f6805c4be84359681a785a0c12e8d2b6",
+    urls = ["https://github.com/bazelbuild/rules_nodejs/releases/download/5.5.3/rules_nodejs-5.5.3.tar.gz"],
 )
+
+# local_repository(
+#     name = "build_bazel_rules_nodejs",
+#     path = "../../dev/rules_nodejs",
+# )
 
 load("@build_bazel_rules_nodejs//:repositories.bzl", "build_bazel_rules_nodejs_dependencies")
 
