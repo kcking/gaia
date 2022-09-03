@@ -77,7 +77,7 @@ async fn index(
 async fn main() -> Result<()> {
     let mut app_wasm_serve = ServeDir::new(".");
     if option_env!("AXUM_PRECOMPRESSED_WASM").is_some() {
-        app_wasm_serve = app_wasm_serve.precompressed_gzip();
+        app_wasm_serve = app_wasm_serve.precompressed_br();
     }
     let app_wasm_serve = get_service(app_wasm_serve).handle_error(|e| async move {
         dbg!(e);

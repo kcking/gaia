@@ -119,6 +119,13 @@ register_toolchains(
     "@zig_sdk//toolchain:windows_arm64",
 )
 
+# compression for large wasm bundle
+http_archive(
+    name = "brotli",
+    strip_prefix = "brotli-1.0.9",
+    urls = ["https://github.com/google/brotli/archive/refs/tags/v1.0.9.zip"],
+)
+
 # go required for docker-less container operations
 http_archive(
     name = "io_bazel_rules_go",

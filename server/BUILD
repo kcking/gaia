@@ -32,7 +32,7 @@ rust_binary(
         "//:app_wasm",
         # wasm-opt takes ~3s to run, only use in release build
         "//:app_wasm_opt",
-        "//:app_wasm_opt_gz",
+        "//:app_wasm_opt_br",
         "//:static_files",
     ],
     edition = "2021",

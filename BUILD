@@ -108,9 +108,9 @@ genrule(
 
 # TODO: use included pkg_tar rule to compress this or rules_brotli
 genrule(
-    name = "app_wasm_opt_gz",
+    name = "app_wasm_opt_br",
     srcs = [":app_wasm_opt"],
-    outs = ["app_wasm_bg_opt.wasm.gz"],
-    # -k: don't delete input, -f: compress links
-    cmd = "gzip -f -k -9 $<",
+    outs = ["app_wasm_bg_opt.wasm.br"],
+    cmd = "./bazel-out/host/bin/external/brotli/brotli -9 $<",
+    tools = ["@brotli"],
 )
