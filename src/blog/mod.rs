@@ -4,7 +4,9 @@ mod syntaxhighlight;
 
 use log::info;
 use time::macros::date;
-use yew::{function_component, html, mdx, mdx_style, use_state, Children, Html, Properties};
+use yew::{
+    function_component, html, include_mdx, mdx, mdx_style, use_state, Children, Html, Properties,
+};
 use yew_router::prelude::Link;
 
 use crate::{blog::syntaxhighlight::HighlightCode, Route};
@@ -160,15 +162,26 @@ pub struct Metadata {
     subtitle: &'static str,
 }
 
-const BLOG_POSTS: &[(Metadata, &dyn Fn(&Metadata) -> Html)] = &[(
-    Metadata {
-        date: date!(2022 - 2 - 15),
-        slug: "building-a-blog-like-its-2022",
-        title: "Building a Blog Like it's 2022 ✨",
-        subtitle: "With Next.js, typescript, react, mdx, rust + wasm",
-    },
-    &post1::post,
-)];
+const BLOG_POSTS: &[(Metadata, &dyn Fn(&Metadata) -> Html)] = &[
+    (
+        Metadata {
+            date: date!(2022 - 2 - 15),
+            slug: "building-a-blog-like-its-2022",
+            title: "Building a Blog Like it's 2022 ✨",
+            subtitle: "With Next.js, typescript, react, mdx, rust + wasm",
+        },
+        &post1::post,
+    ),
+    (
+        Metadata {
+            date: date!(2022 - 9 - 3),
+            slug: "rewriting-modern-web-in-rust",
+            title: "Rewriting Modern Web in Rust",
+            subtitle: "ssr, mdx, hooks",
+        },
+        &post2::post_2,
+    ),
+];
 
 pub fn render(slug: &str) -> Html {
     let post_content = BLOG_POSTS
