@@ -25,10 +25,13 @@ rust_binary(
 rust_library(
     name = "gaia",
     srcs = glob(
-        include = ["src/**/*.rs"],
+        include = [
+            "src/**/*.rs",
+        ],
         exclude = ["src/bin/**"],
     ),
     aliases = aliases(),
+    compile_data = glob(["src/**/*.mdx"]),
     edition = "2021",
     proc_macro_deps = all_crate_deps(
         proc_macro = True,
