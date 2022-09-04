@@ -125,8 +125,8 @@ load("@bazel-zig-cc//toolchain:defs.bzl", zig_toolchains = "toolchains")
 zig_toolchains()
 
 register_toolchains(
-    "@zig_sdk//toolchain:linux_amd64_gnu.2.19",
-    "@zig_sdk//toolchain:linux_arm64_gnu.2.28",
+    # "@zig_sdk//toolchain:linux_amd64_gnu.2.19",
+    # "@zig_sdk//toolchain:linux_arm64_gnu.2.28",
     # macos toolchains fail with iconv error that I'm not sure how to fix:
     # https://github.com/ziglang/zig/issues/10485#issuecomment-1013533258
     # don't register them so we just use local toolchain when on a mac
