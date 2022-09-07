@@ -140,10 +140,10 @@ register_toolchains(
 )
 
 # compression for large wasm bundle
-http_archive(
+git_repository(
     name = "brotli",
-    strip_prefix = "brotli-1.0.9",
-    urls = ["https://github.com/google/brotli/archive/refs/tags/v1.0.9.zip"],
+    commit = "9801a2c5d6c67c467ffad676ac301379bb877fc3",  # 2022-05-12
+    remote = "https://github.com/google/brotli",
 )
 
 # go required for docker-less container operations
