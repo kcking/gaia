@@ -5,12 +5,26 @@ on:
       - main
 
 jobs:
-  build:
-    runs-on: ${{ matrix.os }}
+  build-linux:
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         # os: [macos-latest, windows-latest, ubuntu-latest]
         os: [ubuntu-latest]
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: build
+        run: bazel build //server:image-arm64
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: build
+        run: bazel build //server:image-arm64
+  build-macos:
+    runs-on: macos-latest
     steps:
       - name: checkout
         uses: actions/checkout@v2
