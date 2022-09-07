@@ -1,6 +1,7 @@
 load("@crate_index//:defs.bzl", "aliases", "all_crate_deps")
 load("@rules_rust//wasm_bindgen:wasm_bindgen.bzl", "rust_wasm_bindgen")
 load("@rules_rust//rust:defs.bzl", "rust_binary", "rust_library")
+load("//emsdk:emsdk.bzl", "wasmopt")
 
 package(
     default_visibility = ["//:__subpackages__"],
@@ -73,19 +74,10 @@ genrule(
     cmd_bat = "copy \"$(@D)\\..\\bundle\\bundle.js\" $(OUTS)",
 )
 
-genrule(
+wasmopt(
     name = "app_wasm_opt",
-    srcs = [":app_wasm"],
-    outs = ["app_wasm_bg_opt.wasm"],
-    # platform-specific path to emsdk linker_files:
-    # https://github.com/emscripten-core/emsdk/blob/26a0dea0d3bbf616fa7f0a908e5b08aab406f7c4/bazel/BUILD#L51
-    cmd = "external/" + select({
-        "@emsdk//:linux": "emscripten_bin_linux",
-        "@emsdk//:macos": "emscripten_bin_mac",
-        "@emsdk//:macos_arm64": "emscripten_bin_mac_arm64",
-        "@emsdk//:windows": "emscripten_bin_win",
-    }) + "/bin/wasm-opt $(@D)/app_wasm_bg.wasm -o $@ -Os",
-    tools = ["@emsdk//:linker_files"],
+    src = ":app_wasm",
+    out = "app_wasm_bg_opt.wasm",
 )
 
 genrule(
