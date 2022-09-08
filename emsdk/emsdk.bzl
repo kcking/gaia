@@ -73,6 +73,7 @@ TOOLCHAINS = {
             "@platforms//os:windows",
             "@platforms//cpu:x86_64",
         ],
+        "bin_ext": ".exe",
     },
 }
 
@@ -82,7 +83,7 @@ def declare_toolchains(name):
         emsdk_toolchain(
             name = "emsdk_{tc}".format(tc = tc),
             linker_files = "@emscripten_bin_{tc}//:linker_files".format(tc = tc),
-            wasmopt_path = "external/emscripten_bin_{tc}/bin/wasm-opt".format(tc = tc),
+            wasmopt_path = "external/emscripten_bin_{tc}/bin/wasm-opt{ext}".format(ext = TOOLCHAINS[tc].get("bin_ext", ""), tc = tc),
         )
         native.toolchain(
             name = "emsdk_{tc}_toolchain".format(tc = tc),
