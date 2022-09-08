@@ -203,10 +203,10 @@ load("//emsdk:emsdk.bzl", register_wasmopt_toolchains = "register_toolchains")
 
 register_wasmopt_toolchains()
 
-load("//zig:zig.bzl", register_zig_toolchains = "zig_toolchains")
+load("//zig:zig.bzl", "zig_register_toolchains_repository")
 
-register_zig_toolchains(name = "zig_toolchains")
+zig_register_toolchains_repository(name = "zig_register")
 
-load("@zig_toolchains//:toolchains.bzl", register_zig_toolchains_2 = "register_toolchains")
+load("@zig_register//:toolchains.bzl", register_zig_toolchains = "register_toolchains")
 
-register_zig_toolchains_2()
+register_zig_toolchains()
