@@ -68,7 +68,7 @@ TOOLCHAINS = {
             "@platforms//cpu:x86_64",
         ],
     },
-    "windows": {
+    "win": {
         "exec": [
             "@platforms//os:windows",
             "@platforms//cpu:x86_64",
